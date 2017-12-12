@@ -18,6 +18,7 @@
 		5542D32C1FDDE53600E74E34 /* EPPZ_Cloud_C++.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5537E19B1FDDC00C001F81E9 /* EPPZ_Cloud_C++.mm */; };
 		5542D32F1FDDEA8C00E74E34 /* EPPZ_Cloud_C++.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 55C0168E1FDDCB5000975E20 /* EPPZ_Cloud_C++.h */; };
 		5542D3311FDDEA9200E74E34 /* EPPZ_Cloud.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5529823D1FDC667900144C01 /* EPPZ_Cloud.h */; };
+		558296841FDF6763006FE9F7 /* eppz! Cloud.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5529823A1FDC667900144C01 /* eppz! Cloud.a */; };
 		558525C51FDE063600DDDD45 /* eppz! Cloud.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5529823A1FDC667900144C01 /* eppz! Cloud.a */; };
 		55C016801FDDC4C400975E20 /* UnityString.m in Sources */ = {isa = PBXBuildFile; fileRef = 5537E19D1FDDC079001F81E9 /* UnityString.m */; };
 /* End PBXBuildFile section */
@@ -44,6 +45,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		558296831FDF671E006FE9F7 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "~/Projects/Unity/Test/eppz.Cloud/Assets/Plugins/eppz!/Cloud";
+			dstSubfolderSpec = 0;
+			files = (
+				558296841FDF6763006FE9F7 /* eppz! Cloud.a in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -64,7 +75,6 @@
 		5537E19B1FDDC00C001F81E9 /* EPPZ_Cloud_C++.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "EPPZ_Cloud_C++.mm"; sourceTree = "<group>"; };
 		5537E19D1FDDC079001F81E9 /* UnityString.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UnityString.m; sourceTree = "<group>"; };
 		5537E1A21FDDC2F0001F81E9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		558525C61FDE179C00DDDD45 /* Notes.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Notes.md; sourceTree = "<group>"; };
 		55C0168E1FDDCB5000975E20 /* EPPZ_Cloud_C++.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EPPZ_Cloud_C++.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -115,7 +125,6 @@
 				55C0168E1FDDCB5000975E20 /* EPPZ_Cloud_C++.h */,
 				5537E19B1FDDC00C001F81E9 /* EPPZ_Cloud_C++.mm */,
 				5537E19D1FDDC079001F81E9 /* UnityString.m */,
-				558525C61FDE179C00DDDD45 /* Notes.md */,
 			);
 			path = "eppz! Cloud";
 			sourceTree = "<group>";
@@ -155,6 +164,7 @@
 				552982361FDC667900144C01 /* Sources */,
 				552982371FDC667900144C01 /* Frameworks */,
 				552982381FDC667900144C01 /* CopyFiles */,
+				558296831FDF671E006FE9F7 /* CopyFiles */,
 			);
 			buildRules = (
 			);
