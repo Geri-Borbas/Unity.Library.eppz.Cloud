@@ -1,5 +1,10 @@
 # eppz.Cloud
 
+* 0.4.2
+
+	+ iOS Sandbox app test UI
+		+ Explored auto layout constraints / stack views
+
 * 0.4.0
 
 	+ Implemented Unity plugin architecture
