@@ -18,11 +18,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="dSs-bT-yjk" userLabel="Panel">
-                                <rect key="frame" x="40" y="50" width="295" height="567"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="dSs-bT-yjk" userLabel="Panel">
+                                <rect key="frame" x="40" y="50" width="295" height="479"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Yoy-kd-wqK" userLabel="Settings (Stack View)">
-                                        <rect key="frame" x="0.0" y="0.0" width="295" height="154"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="Yoy-kd-wqK" userLabel="Settings (Stack View)">
+                                        <rect key="frame" x="0.0" y="0.0" width="295" height="130"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SvX-MQ-1EN" userLabel="Name (Stack View)">
                                                 <rect key="frame" x="0.0" y="0.0" width="295" height="33"/>
@@ -41,11 +41,14 @@
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <textInputTraits key="textInputTraits"/>
+                                                        <connections>
+                                                            <action selector="nameTextFieldEditingDidEndOnExit:" destination="BYZ-38-t0r" eventType="editingDidEndOnExit" id="Gzs-12-s74"/>
+                                                        </connections>
                                                     </textField>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m80-VN-FdA" userLabel="Sound (Stack View)">
-                                                <rect key="frame" x="0.0" y="63" width="295" height="31"/>
+                                                <rect key="frame" x="0.0" y="51" width="295" height="31"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sound" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d2e-an-5v9">
                                                         <rect key="frame" x="0.0" y="0.0" width="246" height="31"/>
@@ -56,13 +59,13 @@
                                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xcY-pq-u2D">
                                                         <rect key="frame" x="246" y="0.0" width="51" height="31"/>
                                                         <connections>
-                                                            <action selector="unlockSwitchDidChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="SDb-Hv-wlp"/>
+                                                            <action selector="soundSwitchValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="ILa-bn-W8q"/>
                                                         </connections>
                                                     </switch>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6l6-2U-KMa" userLabel="Volume (Stack View)">
-                                                <rect key="frame" x="0.0" y="124" width="295" height="30"/>
+                                                <rect key="frame" x="0.0" y="100" width="295" height="30"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Volume" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9an-VX-895">
                                                         <rect key="frame" x="0.0" y="0.0" width="100" height="30"/>
@@ -75,16 +78,20 @@
                                                     </label>
                                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="mQu-3k-bhk">
                                                         <rect key="frame" x="98" y="0.0" width="199" height="31"/>
+                                                        <connections>
+                                                            <action selector="volumeSliderTouchedUp:" destination="BYZ-38-t0r" eventType="touchUpOutside" id="PoL-9S-YiU"/>
+                                                            <action selector="volumeSliderTouchedUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="acw-bv-GKM"/>
+                                                        </connections>
                                                     </slider>
                                                 </subviews>
                                             </stackView>
                                         </subviews>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SV8-j1-r5m" userLabel="Separator">
-                                        <rect key="frame" x="0.0" y="174" width="295" height="40"/>
+                                        <rect key="frame" x="0.0" y="148" width="295" height="30"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t04-WF-CgE" userLabel="Line">
-                                                <rect key="frame" x="0.0" y="19.5" width="295" height="1"/>
+                                                <rect key="frame" x="0.0" y="14.5" width="295" height="1"/>
                                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="w4o-wo-YrS"/>
@@ -93,14 +100,14 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="DFj-Cy-ZOA"/>
+                                            <constraint firstAttribute="height" constant="30" id="DFj-Cy-ZOA"/>
                                             <constraint firstItem="t04-WF-CgE" firstAttribute="centerY" secondItem="SV8-j1-r5m" secondAttribute="centerY" id="IN6-6r-MmN"/>
                                             <constraint firstItem="t04-WF-CgE" firstAttribute="leading" secondItem="SV8-j1-r5m" secondAttribute="leading" id="Ugw-AA-hZm"/>
                                             <constraint firstAttribute="trailing" secondItem="t04-WF-CgE" secondAttribute="trailing" id="ZfT-LR-Aiv"/>
                                         </constraints>
                                     </view>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="RgF-10-IXA" userLabel="Progress (Stack View)">
-                                        <rect key="frame" x="0.0" y="234" width="295" height="212"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="RgF-10-IXA" userLabel="Progress (Stack View)">
+                                        <rect key="frame" x="0.0" y="196" width="295" height="176"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Esf-6r-jIa" userLabel="Level (Stack View)">
                                                 <rect key="frame" x="0.0" y="0.0" width="295" height="29"/>
@@ -124,11 +131,14 @@
                                                             <segment title="5"/>
                                                             <segment title="6"/>
                                                         </segments>
+                                                        <connections>
+                                                            <action selector="levelSegmentedControlValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="aTj-jW-BAN"/>
+                                                        </connections>
                                                     </segmentedControl>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bmd-uw-IYM" userLabel="I. Trophy (Stack View)">
-                                                <rect key="frame" x="0.0" y="59" width="295" height="31"/>
+                                                <rect key="frame" x="0.0" y="47" width="295" height="31"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I. Trophy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G2P-3a-zG6">
                                                         <rect key="frame" x="0.0" y="0.0" width="246" height="31"/>
@@ -139,13 +149,13 @@
                                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7LF-cf-htu">
                                                         <rect key="frame" x="246" y="0.0" width="51" height="31"/>
                                                         <connections>
-                                                            <action selector="solveSwitchDidChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="M9p-KD-xUp"/>
+                                                            <action selector="firstTrophySwitchValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="Iok-oq-mYJ"/>
                                                         </connections>
                                                     </switch>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gAP-Ma-5ao" userLabel="II. Trophy (Stack View)">
-                                                <rect key="frame" x="0.0" y="120" width="295" height="31"/>
+                                                <rect key="frame" x="0.0" y="96" width="295" height="31"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="II. Trophy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A9M-iB-a3r">
                                                         <rect key="frame" x="0.0" y="0.0" width="246" height="31"/>
@@ -156,13 +166,13 @@
                                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="66g-y8-VM0">
                                                         <rect key="frame" x="246" y="0.0" width="51" height="31"/>
                                                         <connections>
-                                                            <action selector="solveSwitchDidChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="Hat-zj-NCb"/>
+                                                            <action selector="secondTrophySwitchValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="Vm5-tN-wxs"/>
                                                         </connections>
                                                     </switch>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QJs-lV-EDx" userLabel="III. Trophy (Stack View)">
-                                                <rect key="frame" x="0.0" y="181" width="295" height="31"/>
+                                                <rect key="frame" x="0.0" y="145" width="295" height="31"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="III. Trophy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vhe-J0-06l">
                                                         <rect key="frame" x="0.0" y="0.0" width="246" height="31"/>
@@ -173,7 +183,7 @@
                                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0f9-sl-fg9">
                                                         <rect key="frame" x="246" y="0.0" width="51" height="31"/>
                                                         <connections>
-                                                            <action selector="solveSwitchDidChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="sHZ-FT-fW4"/>
+                                                            <action selector="thirdTrophySwitchValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="9xy-gW-4Do"/>
                                                         </connections>
                                                     </switch>
                                                 </subviews>
@@ -181,10 +191,10 @@
                                         </subviews>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xd2-sI-qvX" userLabel="Separator">
-                                        <rect key="frame" x="0.0" y="466" width="295" height="40"/>
+                                        <rect key="frame" x="0.0" y="390" width="295" height="30"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9FC-6o-zCM" userLabel="Line">
-                                                <rect key="frame" x="0.0" y="19.5" width="295" height="1"/>
+                                                <rect key="frame" x="0.0" y="14.5" width="295" height="1"/>
                                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="CWY-tZ-4Bi"/>
@@ -195,16 +205,16 @@
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="9FC-6o-zCM" secondAttribute="trailing" id="HwW-mK-h4T"/>
                                             <constraint firstItem="9FC-6o-zCM" firstAttribute="centerY" secondItem="Xd2-sI-qvX" secondAttribute="centerY" id="Ifo-Sc-dU0"/>
-                                            <constraint firstAttribute="height" constant="40" id="RuE-lV-DsM"/>
+                                            <constraint firstAttribute="height" constant="30" id="RuE-lV-DsM"/>
                                             <constraint firstItem="9FC-6o-zCM" firstAttribute="leading" secondItem="Xd2-sI-qvX" secondAttribute="leading" id="yWH-SS-bxD"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pgh-Gq-JDS">
-                                        <rect key="frame" x="0.0" y="526" width="295" height="41"/>
+                                        <rect key="frame" x="0.0" y="438" width="295" height="41"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                         <state key="normal" title="Initialize"/>
                                         <connections>
-                                            <action selector="initializeButtonTouchedUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bp5-Hd-Y2N"/>
+                                            <action selector="initializeButtonTouchedUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wSF-dE-rrw"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -219,8 +229,13 @@
                         <viewLayoutGuide key="safeArea" id="7un-th-ReB"/>
                     </view>
                     <connections>
-                        <outlet property="solveSwitch" destination="7LF-cf-htu" id="iMI-hI-aY8"/>
-                        <outlet property="unlockSwitch" destination="xcY-pq-u2D" id="da8-ks-jNw"/>
+                        <outlet property="firstTrophySwitch" destination="7LF-cf-htu" id="hAy-jl-oRx"/>
+                        <outlet property="levelSegmentedControl" destination="U1P-nq-FCN" id="SPA-uQ-bYB"/>
+                        <outlet property="nameTextField" destination="E08-CM-WNj" id="pph-bv-ihk"/>
+                        <outlet property="secondTrophySwitch" destination="66g-y8-VM0" id="69J-B6-JmQ"/>
+                        <outlet property="soundSwitch" destination="xcY-pq-u2D" id="o1g-z3-CvA"/>
+                        <outlet property="thirdTrophySwitch" destination="0f9-sl-fg9" id="JCg-mL-5wb"/>
+                        <outlet property="volumeSlider" destination="mQu-3k-bhk" id="XRU-9o-ena"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

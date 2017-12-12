@@ -15,17 +15,42 @@
 #import "EPPZ_Cloud_C++.h"
 
 
+// Always updating keys.
+NSString *NameKey = @"name"; // string
+NSString *SoundKey = @"sound"; // bool
+NSString *VolumeKey = @"volume"; // float
+
+// Conflicting keys.
+NSString *LevelKey = @"level"; // int
+NSString *FirstTrophyKey = @"firstTrophy"; // bool
+NSString *SecondTrophyKey = @"secondTrophy"; // bool
+NSString *ThirdTrophyKey = @"thirdTrophy"; // bool
+
+
 @interface ViewController : UIViewController <EPPZ_Cloud_Delegate>
 
 
-@property (nonatomic, strong) IBOutlet UISwitch *unlockSwitch;
-@property (nonatomic, strong) IBOutlet UISwitch *hintSwitch;
-@property (nonatomic, strong) IBOutlet UISwitch *solveSwitch;
+@property (nonatomic, weak) IBOutlet UITextField *nameTextField;
+@property (nonatomic, weak) IBOutlet UISwitch *soundSwitch;
+@property (nonatomic, weak) IBOutlet UISlider *volumeSlider;
 
--(IBAction)initializeButtonTouchedUp:(id)sender;
--(IBAction)unlockSwitchDidChange:(id) sender;
--(IBAction)hintSwitchDidChange:(id) sender;
--(IBAction)solveSwitchDidChange:(id) sender;
+@property (nonatomic, weak) IBOutlet UISegmentedControl *levelSegmentedControl;
+@property (nonatomic, weak) IBOutlet UISwitch *firstTrophySwitch;
+@property (nonatomic, weak) IBOutlet UISwitch *secondTrophySwitch;
+@property (nonatomic, weak) IBOutlet UISwitch *thirdTrophySwitch;
+
+-(IBAction)nameTextFieldEditingDidEndOnExit:(UITextField*) sender;
+-(IBAction)soundSwitchValueChanged:(UISwitch*) sender;
+-(IBAction)volumeSliderTouchedUp:(UISlider*) sender;
+-(IBAction)levelSegmentedControlValueChanged:(UISegmentedControl*) sender;
+-(IBAction)firstTrophySwitchValueChanged:(UISwitch*) sender;
+-(IBAction)secondTrophySwitchValueChanged:(UISwitch*) sender;
+-(IBAction)thirdTrophySwitchValueChanged:(UISwitch*) sender;
+-(IBAction)initializeButtonTouchedUp:(UIButton*) sender;
 
 
 @end
+
+
+// Helper.
+#define LOG_METHOD NSLog(@"[%@ %@]", NSStringFromClass([self class]), NSStringFromSelector(_cmd))

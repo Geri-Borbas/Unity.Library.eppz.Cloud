@@ -1,8 +1,20 @@
 # eppz.Cloud
 
+* 0.5.0
+
+	+ Added value types
+		+ `EPPZ_Cloud_StringForKey` / `EPPZ_Cloud_SetStringForKey`
+		+ `EPPZ_Cloud_FloatForKey` / `EPPZ_Cloud_SetFloatForKey`
+		+ `EPPZ_Cloud_IntForKey` / `EPPZ_Cloud_SetIntForKey`
+		+ `EPPZ_Cloud_BoolForKey` / `EPPZ_Cloud_SetBoolForKey`
+	+ iOS Sandbox app implemented
+		+ Hooked up UI outlets / actions
+		+ Added keys with corresponding actions (blocks)
+		+ Implemented per value conflict resolution strategies
+
 * 0.4.2
 
-	+ iOS Sandbox app test UI
+	+ Built iOS Sandbox app test UI
 		+ Explored auto layout constraints / stack views
 
 * 0.4.0

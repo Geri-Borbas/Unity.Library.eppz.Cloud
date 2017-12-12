@@ -27,6 +27,15 @@
 -(void)initializeWithGameObjectName:(const char*) gameObjectName;
 -(BOOL)synchronize;
 
+-(const char*)stringForKey:(const char*) key;
+-(void)setString:(const char*) value forKey:(const char*) key;
+
+-(float)floatForKey:(const char*) key;
+-(void)setFloat:(float) value forKey:(const char*) key;
+
+-(int)intForKey:(const char*) key;
+-(void)setInt:(int) value forKey:(const char*) key;
+
 -(BOOL)boolForKey:(const char*) key;
 -(void)setBool:(BOOL) value forKey:(const char*) key;
 

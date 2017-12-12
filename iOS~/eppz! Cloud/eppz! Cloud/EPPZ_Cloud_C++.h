@@ -22,6 +22,15 @@ extern "C" {
     void EPPZ_Cloud_InitializeWithGameObjectName(const char* gameObjectName);
     bool EPPZ_Cloud_Synchronize(void);
     
+    const char* EPPZ_Cloud_StringForKey(const char* key);
+    void EPPZ_Cloud_SetStringForKey(const char* value, const char* key);
+    
+    float EPPZ_Cloud_FloatForKey(const char* key);
+    void EPPZ_Cloud_SetFloatForKey(float value, const char* key);
+    
+    int EPPZ_Cloud_IntForKey(const char* key);
+    void EPPZ_Cloud_SetIntForKey(int value, const char* key);
+    
     bool EPPZ_Cloud_BoolForKey(const char* key);
     void EPPZ_Cloud_SetBoolForKey(bool value, const char* key);
     
