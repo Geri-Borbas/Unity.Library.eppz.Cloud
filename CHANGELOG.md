@@ -1,5 +1,12 @@
 # eppz.Cloud
 
+* 0.6.0
+
+	+ Icons
+	+ Conflict resolving can be switched from UI
+		+ Some refactor on action grouping
+	+ Initialization happens upon `viewDidAppear`
+
 * 0.5.0
 
 	+ Added value types

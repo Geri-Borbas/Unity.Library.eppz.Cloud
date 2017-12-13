@@ -15,14 +15,19 @@
 
 
 @interface ViewController ()
-@property (nonatomic, strong) NSDictionary *blocksForChangedAlwaysUpdatingKeys;
-@property (nonatomic, strong) NSDictionary *blocksForChangedConflictingKeys;
-@property (nonatomic, strong) NSMutableDictionary *blocksForEveryChangedKeys;
+@property (nonatomic, strong) NSDictionary *uiUpdatingOnChangeActionsForKeys;
+@property (nonatomic, strong) NSDictionary *conflictResolvingOnChangeActionsForKeys;
 @end
 
 
 @implementation ViewController
 
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self initializeCloud];
+}
 
 #pragma mark - iCloud
 
@@ -30,153 +35,120 @@
 {
     LOG_METHOD;
     
-    // Bind blocks.
-    [self bindBlocksForEveryChangedKeysWithConflictResolution:YES];
+    // Updating logic.
+    [self bindOnChangeActions];
     
     // Initialize plugin.
     [EPPZ_Cloud setDelegate:self];
     EPPZ_Cloud_InitializeWithGameObjectName("eppz! Cloud");
     EPPZ_Cloud_Synchronize();
  
-    // Invoke every block (sync UI with local key-value store).
-    for (NSString* eachKey in self.blocksForEveryChangedKeys.allKeys)
-    {
-        void (^eachBlock)(void) = self.blocksForEveryChangedKeys[eachKey];
-        eachBlock();
-    }
+    // Invoke every `onChange` action.
+    for (void (^eachBlock)(void) in self.uiUpdatingOnChangeActionsForKeys.allValues)
+    { eachBlock(); }
+    
+    for (void (^eachBlock)(void) in self.conflictResolvingOnChangeActionsForKeys.allValues)
+    { eachBlock(); }
 
     [self setControlsEnabled:YES];
 }
 
--(void)bindBlocksForEveryChangedKeysWithConflictResolution:(BOOL) useConflictResolution
+-(void)bindOnChangeActions
 {
-    [self bindBlocksForChangedAlwaysUpdatingKeys];
-
-    if (useConflictResolution)
-    { [self bindConflictResolvingBlocksForChangedConflictingKeys]; }
-    else
-    { [self bindAlwaysUpdatingBlocksForChangedConflictingKeys]; }
-    
-    self.blocksForEveryChangedKeys = [NSMutableDictionary new];
-    [self.blocksForEveryChangedKeys addEntriesFromDictionary: self.blocksForChangedAlwaysUpdatingKeys];
-    [self.blocksForEveryChangedKeys addEntriesFromDictionary: self.blocksForChangedConflictingKeys];
-}
-
--(void)bindBlocksForChangedAlwaysUpdatingKeys
-{
-    LOG_METHOD;
-    self.blocksForChangedAlwaysUpdatingKeys = @{
+    self.uiUpdatingOnChangeActionsForKeys = @{
         NameKey :
         ^{
-            NSLog(@"ViewController.blocksForChangedKeys[\"%@\"]()", NameKey);
+            NSLog(@"ViewController.uiUpdatingOnChangeActionsForKeys[\"%@\"]()", NameKey);
             [self.nameTextField setText:[NSString stringWithUTF8String:EPPZ_Cloud_StringForKey(NameKey.UTF8String)]];
         },
         SoundKey :
         ^{
-            NSLog(@"ViewController.blocksForChangedKeys[\"%@\"]()", SoundKey);
+            NSLog(@"ViewController.uiUpdatingOnChangeActionsForKeys[\"%@\"]()", SoundKey);
             [self.soundSwitch setOn:EPPZ_Cloud_BoolForKey(SoundKey.UTF8String) animated:YES];
         },
         VolumeKey :
         ^{
-            NSLog(@"ViewController.blocksForChangedKeys[\"%@\"]()", VolumeKey);
+            NSLog(@"ViewController.uiUpdatingOnChangeActionsForKeys[\"%@\"]()", VolumeKey);
             [self.volumeSlider setValue:EPPZ_Cloud_FloatForKey(VolumeKey.UTF8String) animated:YES];
-        }
-    };
-}
-
--(void)bindAlwaysUpdatingBlocksForChangedConflictingKeys
-{
-    LOG_METHOD;
-    self.blocksForChangedConflictingKeys = @{
+        },
         LevelKey :
         ^{
-            NSLog(@"ViewController.blocksForChangedKeys[\"%@\"]()", LevelKey);
+            NSLog(@"ViewController.uiUpdatingOnChangeActionsForKeys[\"%@\"]()", LevelKey);
             [self.levelSegmentedControl setSelectedSegmentIndex:EPPZ_Cloud_IntForKey(LevelKey.UTF8String)];
         },
         FirstTrophyKey :
         ^{
-            NSLog(@"ViewController.blocksForChangedKeys[\"%@\"]()", FirstTrophyKey);
+            NSLog(@"ViewController.uiUpdatingOnChangeActionsForKeys[\"%@\"]()", FirstTrophyKey);
             [self.firstTrophySwitch setOn:EPPZ_Cloud_BoolForKey(FirstTrophyKey.UTF8String) animated:YES];
         },
         SecondTrophyKey :
         ^{
-            NSLog(@"ViewController.blocksForChangedKeys[\"%@\"]()", SecondTrophyKey);
+            NSLog(@"ViewController.uiUpdatingOnChangeActionsForKeys[\"%@\"]()", SecondTrophyKey);
             [self.secondTrophySwitch setOn:EPPZ_Cloud_BoolForKey(SecondTrophyKey.UTF8String) animated:YES];
         },
         ThirdTrophyKey :
         ^{
-            NSLog(@"ViewController.blocksForChangedKeys[\"%@\"]()", ThirdTrophyKey);
+            NSLog(@"ViewController.uiUpdatingOnChangeActionsForKeys[\"%@\"]()", ThirdTrophyKey);
             [self.thirdTrophySwitch setOn:EPPZ_Cloud_BoolForKey(ThirdTrophyKey.UTF8String) animated:YES];
         }
     };
-}
-
--(void)bindConflictResolvingBlocksForChangedConflictingKeys
-{
-    self.blocksForChangedConflictingKeys = @{
+    
+    self.conflictResolvingOnChangeActionsForKeys = @{
         LevelKey :
         ^{
-            NSLog(@"ViewController.blocksForChangedKeys[\"%@\"]()", LevelKey);
+            NSLog(@"ViewController.conflictResolvingOnChangeActionsForKeys[\"%@\"]()", LevelKey);
 
             int remoteValue = EPPZ_Cloud_IntForKey(LevelKey.UTF8String);
             int localValue = (int)self.levelSegmentedControl.selectedSegmentIndex;
             BOOL isConflict = (remoteValue != localValue);
             if (isConflict)
             {
-                int resolvedValue = MAX(remoteValue, localValue); // Resolving strategy
-                EPPZ_Cloud_SetIntForKey(resolvedValue, LevelKey.UTF8String);
-                EPPZ_Cloud_Synchronize();
+              int resolvedValue = MAX(remoteValue, localValue); // Resolving strategy
+              EPPZ_Cloud_SetIntForKey(resolvedValue, LevelKey.UTF8String);
+              EPPZ_Cloud_Synchronize();
             }
-            
-            [self.levelSegmentedControl setSelectedSegmentIndex:EPPZ_Cloud_IntForKey(LevelKey.UTF8String)];
         },
         FirstTrophyKey :
         ^{
-            NSLog(@"ViewController.blocksForChangedKeys[\"%@\"]()", FirstTrophyKey);
+            NSLog(@"ViewController.conflictResolvingOnChangeActionsForKeys[\"%@\"]()", FirstTrophyKey);
 
             BOOL remoteValue = EPPZ_Cloud_BoolForKey(FirstTrophyKey.UTF8String);
             BOOL localValue = self.firstTrophySwitch.isOn;
             BOOL isConflict = (remoteValue != localValue);
             if (isConflict)
             {
-                BOOL resolvedValue = (remoteValue || localValue); // Resolving strategy
-                EPPZ_Cloud_SetBoolForKey(resolvedValue, FirstTrophyKey.UTF8String);
-                EPPZ_Cloud_Synchronize();
+              BOOL resolvedValue = (remoteValue || localValue); // Resolving strategy
+              EPPZ_Cloud_SetBoolForKey(resolvedValue, FirstTrophyKey.UTF8String);
+              EPPZ_Cloud_Synchronize();
             }
-            
-            [self.firstTrophySwitch setOn:EPPZ_Cloud_BoolForKey(FirstTrophyKey.UTF8String) animated:YES];
         },
         SecondTrophyKey :
         ^{
-            NSLog(@"ViewController.blocksForChangedKeys[\"%@\"]()", SecondTrophyKey);
-            
+            NSLog(@"ViewController.conflictResolvingOnChangeActionsForKeys[\"%@\"]()", SecondTrophyKey);
+
             BOOL remoteValue = EPPZ_Cloud_BoolForKey(SecondTrophyKey.UTF8String);
             BOOL localValue = self.secondTrophySwitch.isOn;
             BOOL isConflict = (remoteValue != localValue);
             if (isConflict)
             {
-                BOOL resolvedValue = (remoteValue || localValue); // Resolving strategy
-                EPPZ_Cloud_SetBoolForKey(resolvedValue, SecondTrophyKey.UTF8String);
-                EPPZ_Cloud_Synchronize();
+              BOOL resolvedValue = (remoteValue || localValue); // Resolving strategy
+              EPPZ_Cloud_SetBoolForKey(resolvedValue, SecondTrophyKey.UTF8String);
+              EPPZ_Cloud_Synchronize();
             }
-            
-            [self.secondTrophySwitch setOn:EPPZ_Cloud_BoolForKey(SecondTrophyKey.UTF8String) animated:YES];
         },
         ThirdTrophyKey :
         ^{
-            NSLog(@"ViewController.blocksForChangedKeys[\"%@\"]()", ThirdTrophyKey);
-            
+            NSLog(@"ViewController.conflictResolvingOnChangeActionsForKeys[\"%@\"]()", ThirdTrophyKey);
+
             BOOL remoteValue = EPPZ_Cloud_BoolForKey(ThirdTrophyKey.UTF8String);
             BOOL localValue = self.thirdTrophySwitch.isOn;
             BOOL isConflict = (remoteValue != localValue);
             if (isConflict)
             {
-                BOOL resolvedValue = (remoteValue || localValue); // Resolving strategy
-                EPPZ_Cloud_SetBoolForKey(resolvedValue, ThirdTrophyKey.UTF8String);
-                EPPZ_Cloud_Synchronize();
+              BOOL resolvedValue = (remoteValue || localValue); // Resolving strategy
+              EPPZ_Cloud_SetBoolForKey(resolvedValue, ThirdTrophyKey.UTF8String);
+              EPPZ_Cloud_Synchronize();
             }
-            
-            [self.thirdTrophySwitch setOn:EPPZ_Cloud_BoolForKey(ThirdTrophyKey.UTF8String) animated:YES];
         }
     };
 }
@@ -196,9 +168,18 @@
     // Invoke appropriate action for each value changed.
     for (NSString* eachChangedKey in userInfo[NSUbiquitousKeyValueStoreChangedKeysKey])
     {
-        if ([self.blocksForEveryChangedKeys.allKeys containsObject:eachChangedKey])
+        // Invoke conflict resolving action if any (and if requested).
+        if (self.resolveConflictsSwitch.isOn &&
+            [self.conflictResolvingOnChangeActionsForKeys.allKeys containsObject:eachChangedKey])
         {
-            void (^eachBlock)(void) = self.blocksForEveryChangedKeys[eachChangedKey];
+            void (^eachBlock)(void) = self.conflictResolvingOnChangeActionsForKeys[eachChangedKey];
+            eachBlock();
+        }
+
+        // Invoke UI updating action if any.
+        if ([self.uiUpdatingOnChangeActionsForKeys.allKeys containsObject:eachChangedKey])
+        {
+            void (^eachBlock)(void) = self.uiUpdatingOnChangeActionsForKeys[eachChangedKey];
             eachBlock();
         }
     }
@@ -261,12 +242,6 @@
     LOG_METHOD;
     EPPZ_Cloud_SetBoolForKey(sender.isOn, ThirdTrophyKey.UTF8String);
     EPPZ_Cloud_Synchronize();
-}
-
--(IBAction)initializeButtonTouchedUp:(UIButton*) sender
-{
-    LOG_METHOD;
-    [self initializeCloud];
 }
 
 -(void)setControlsEnabled:(BOOL) enabled

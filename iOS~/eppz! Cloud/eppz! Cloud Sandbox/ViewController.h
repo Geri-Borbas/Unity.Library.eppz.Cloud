@@ -15,12 +15,12 @@
 #import "EPPZ_Cloud_C++.h"
 
 
-// Always updating keys.
+// Settings keys.
 NSString *NameKey = @"name"; // string
 NSString *SoundKey = @"sound"; // bool
 NSString *VolumeKey = @"volume"; // float
 
-// Conflicting keys.
+// Progress keys.
 NSString *LevelKey = @"level"; // int
 NSString *FirstTrophyKey = @"firstTrophy"; // bool
 NSString *SecondTrophyKey = @"secondTrophy"; // bool
@@ -39,6 +39,9 @@ NSString *ThirdTrophyKey = @"thirdTrophy"; // bool
 @property (nonatomic, weak) IBOutlet UISwitch *secondTrophySwitch;
 @property (nonatomic, weak) IBOutlet UISwitch *thirdTrophySwitch;
 
+@property (nonatomic, weak) IBOutlet UISwitch *resolveConflictsSwitch;
+
+
 -(IBAction)nameTextFieldEditingDidEndOnExit:(UITextField*) sender;
 -(IBAction)soundSwitchValueChanged:(UISwitch*) sender;
 -(IBAction)volumeSliderTouchedUp:(UISlider*) sender;
@@ -46,7 +49,6 @@ NSString *ThirdTrophyKey = @"thirdTrophy"; // bool
 -(IBAction)firstTrophySwitchValueChanged:(UISwitch*) sender;
 -(IBAction)secondTrophySwitchValueChanged:(UISwitch*) sender;
 -(IBAction)thirdTrophySwitchValueChanged:(UISwitch*) sender;
--(IBAction)initializeButtonTouchedUp:(UIButton*) sender;
 
 
 @end
