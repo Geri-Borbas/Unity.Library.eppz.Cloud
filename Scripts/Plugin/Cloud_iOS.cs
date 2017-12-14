@@ -28,6 +28,24 @@ namespace EPPZ.Cloud.Plugin
 		private static extern bool EPPZ_Cloud_Synchronize();
     
 		[DllImport ("__Internal")]
+    	private static extern string EPPZ_Cloud_StringForKey(string key);
+
+		[DllImport ("__Internal")]
+    	private static extern void EPPZ_Cloud_SetStringForKey(string value, string key);
+    
+		[DllImport ("__Internal")]
+    	private static extern float EPPZ_Cloud_FloatForKey(string key);
+
+		[DllImport ("__Internal")]
+    	private static extern void EPPZ_Cloud_SetFloatForKey(float value, string key);
+    
+		[DllImport ("__Internal")]
+    	private static extern int EPPZ_Cloud_IntForKey(string key);
+
+		[DllImport ("__Internal")]
+    	private static extern void EPPZ_Cloud_SetIntForKey(int value, string key);
+    
+		[DllImport ("__Internal")]
     	private static extern bool EPPZ_Cloud_BoolForKey(string key);
 
 		[DllImport ("__Internal")]
@@ -46,14 +64,35 @@ namespace EPPZ.Cloud.Plugin
 
 		public override void CloudDidChange(string message)
 		{
-			// TODO: Parse JSON.
-			// TODO: Get changed keys.
-			// TODO: Remove this placeholder.
-			string[] changedKeys = new string[] {"unlock", "hint", "solved"};
+			// Parse JSON.
+			iOS.UserInfo userInfo = new iOS.UserInfo();
+			JsonUtility.FromJsonOverwrite(message, userInfo);
+			
+			// Get notification payload.
+			Cloud.ChangeReason changeReason = (Cloud.ChangeReason)userInfo.NSUbiquitousKeyValueStoreChangeReasonKey;
+			string[] changedKeys = userInfo.NSUbiquitousKeyValueStoreChangedKeysKey;
 
 			// Callback.
-			cloudObject.CloudDidChange(changedKeys);
+			cloudObject.OnKeysChanged(changedKeys, changeReason);
 		}
+
+		public override string StringForKey(string key)
+		{ return EPPZ_Cloud_StringForKey(key); }
+
+		public override void SetStringForKey(string value, string key)
+		{ EPPZ_Cloud_SetStringForKey(value, key); }
+
+		public override float FloatForKey(string key)
+		{ return EPPZ_Cloud_FloatForKey(key); }
+
+		public override void SetFloatForKey(float value, string key)
+		{ EPPZ_Cloud_SetFloatForKey(value, key); }
+
+		public override int IntForKey(string key)
+		{ return EPPZ_Cloud_IntForKey(key); }
+
+		public override void SetIntForKey(int value, string key)
+		{ EPPZ_Cloud_SetIntForKey(value, key); }
 
 		public override bool BoolForKey(string key)
 		{ return EPPZ_Cloud_BoolForKey(key); }

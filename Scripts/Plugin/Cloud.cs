@@ -17,6 +17,14 @@ namespace EPPZ.Cloud.Plugin
 	public class Cloud
 	{
 
+		public enum ChangeReason
+    	{
+	        ServerChange,
+        	InitialSyncChange,
+        	QuotaViolationChange,
+        	AccountChange
+    	}
+
 
 		protected ICloud cloudObject;
 
@@ -34,8 +42,8 @@ namespace EPPZ.Cloud.Plugin
 				: (Cloud)new Cloud_iOS();
 			#elif UNITY_ANDROID
 			plugin = (Application.isEditor)
-				? (EPPZ_Cloud)new EPPZ_Cloud_Editor()
-				: (EPPZ_Cloud)new EPPZ_Cloud_Android();
+				? (Cloud)new Cloud_Editor()
+				: (Cloud)new Cloud_Android();
 			#endif
 
 			plugin.cloudObject = cloudObject;
@@ -48,20 +56,22 @@ namespace EPPZ.Cloud.Plugin
 
 	#region Features
 
-		public virtual void InitializeWithGameObjectName(string gameObjectName)
-		{ }
+		public virtual void InitializeWithGameObjectName(string gameObjectName) { }
+		public virtual void Synchronize() { }
 
-		public virtual void Synchronize()
-		{ }
+		public virtual string StringForKey(string key) { return ""; }
+		public virtual void SetStringForKey(string value, string key) { }
 
-		public virtual bool BoolForKey(string key)
-		{ return false; }
+		public virtual float FloatForKey(string key) { return 0.0f; }
+		public virtual void SetFloatForKey(float value, string key) { }
 
-		public virtual void SetBoolForKey(bool value, string key)
-		{ }
+		public virtual int IntForKey(string key) { return 0; }
+		public virtual void SetIntForKey(int value, string key) { }
 
-		public virtual void CloudDidChange(string message)
-		{ }
+		public virtual bool BoolForKey(string key) { return false; }
+		public virtual void SetBoolForKey(bool value, string key) { }
+
+		public virtual void CloudDidChange(string message) { }
 
 	#endregion
 	

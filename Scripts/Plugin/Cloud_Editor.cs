@@ -32,7 +32,7 @@ namespace EPPZ.Cloud.Plugin
 		public override void CloudDidChange(string message)
 		{
 			string[] changedKeys = new string[] {"unlock", "hint", "solve"};
-			cloudObject.CloudDidChange(changedKeys);
+			cloudObject.OnKeysChanged(changedKeys, Cloud.ChangeReason.ServerChange);
 		}
 
 		public override bool BoolForKey(string key)

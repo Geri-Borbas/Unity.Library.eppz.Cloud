@@ -1,5 +1,11 @@
 # eppz.Cloud
 
+* 0.6.3
+
+	+ Modeled iOS notification payload
+		+ Now can be deserialized using `JsonUtility`
+	+ Hooked up value type accessors
+
 * 0.6.2
 
 	+ Plain C plugin interface (with `NSString` parameters) for sandbox app usage

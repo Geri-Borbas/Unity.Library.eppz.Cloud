@@ -59,7 +59,7 @@ namespace EPPZ.Cloud
 		public void SimulateCloudDidChange()
 		{ plugin.CloudDidChange("Simulate"); }
 
-		public void CloudDidChange(string[] changedKeys)
+		public void OnKeysChanged(string[] changedKeys, Plugin.Cloud.ChangeReason changeReason)
 		{
 			// Enumerate changed keys.
 			foreach (string eachChangedKey in changedKeys)

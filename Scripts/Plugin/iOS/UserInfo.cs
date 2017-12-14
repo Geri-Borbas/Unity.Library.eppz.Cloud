@@ -8,18 +8,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Runtime.InteropServices;
 
 
-namespace EPPZ.Cloud.Plugin
+namespace EPPZ.Cloud.Plugin.iOS
 {
 
 
-	public interface ICloud
-    {
-        
+    /// <summary>
+    /// The model of `NSNotification.userInfo` for the notification
+    /// `NSUbiquitousKeyValueStoreDidChangeExternallyNotification`.
+    /// </summarys>
+    [System.Serializable]
+	public class UserInfo
+	{
 
-        void CloudDidChange(string message); // To be messaged from native code
-        void OnKeysChanged(string[] changedKeys, Cloud.ChangeReason changeReason); // To be called from plugin
+
+        public enum NSUbiquitousKeyValueStoreChangeReason
+        {
+            NSUbiquitousKeyValueStoreServerChange,
+            NSUbiquitousKeyValueStoreInitialSyncChange,
+            NSUbiquitousKeyValueStoreQuotaViolationChange,
+            NSUbiquitousKeyValueStoreAccountChange
+        }
+
+        public NSUbiquitousKeyValueStoreChangeReason NSUbiquitousKeyValueStoreChangeReasonKey;
+        public string[] NSUbiquitousKeyValueStoreChangedKeysKey;
 	}
 }
