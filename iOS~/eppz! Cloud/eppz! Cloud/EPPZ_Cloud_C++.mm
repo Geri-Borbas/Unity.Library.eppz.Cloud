@@ -14,9 +14,8 @@
 #import "EPPZ_Cloud_C++.h"
 
 
-#if __cplusplus
-extern "C" {
-#endif
+extern "C"
+{
     
     
     void EPPZ_Cloud_InitializeWithGameObjectName(const char* gameObjectName)
@@ -50,8 +49,6 @@ extern "C" {
     { [[EPPZ_Cloud instance] setBool:value forKey:key]; }
         
     
-#if __cplusplus
 }
-#endif
 
 

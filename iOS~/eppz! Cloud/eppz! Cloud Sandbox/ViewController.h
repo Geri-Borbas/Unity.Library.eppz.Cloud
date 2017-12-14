@@ -12,34 +12,34 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "EPPZ_Cloud_C++.h"
+#import "EPPZ_Cloud_C.h"
 
 
 // Settings keys.
-NSString *NameKey = @"name"; // string
-NSString *SoundKey = @"sound"; // bool
-NSString *VolumeKey = @"volume"; // float
+NSString* NameKey = @"name"; // string
+NSString* SoundKey = @"sound"; // bool
+NSString* VolumeKey = @"volume"; // float
 
 // Progress keys.
-NSString *LevelKey = @"level"; // int
-NSString *FirstTrophyKey = @"firstTrophy"; // bool
-NSString *SecondTrophyKey = @"secondTrophy"; // bool
-NSString *ThirdTrophyKey = @"thirdTrophy"; // bool
+NSString* LevelKey = @"level"; // int
+NSString* FirstTrophyKey = @"firstTrophy"; // bool
+NSString* SecondTrophyKey = @"secondTrophy"; // bool
+NSString* ThirdTrophyKey = @"thirdTrophy"; // bool
 
 
 @interface ViewController : UIViewController <EPPZ_Cloud_Delegate>
 
 
-@property (nonatomic, weak) IBOutlet UITextField *nameTextField;
-@property (nonatomic, weak) IBOutlet UISwitch *soundSwitch;
-@property (nonatomic, weak) IBOutlet UISlider *volumeSlider;
+@property (nonatomic, weak) IBOutlet UITextField* nameTextField;
+@property (nonatomic, weak) IBOutlet UISwitch* soundSwitch;
+@property (nonatomic, weak) IBOutlet UISlider* volumeSlider;
 
-@property (nonatomic, weak) IBOutlet UISegmentedControl *levelSegmentedControl;
-@property (nonatomic, weak) IBOutlet UISwitch *firstTrophySwitch;
-@property (nonatomic, weak) IBOutlet UISwitch *secondTrophySwitch;
-@property (nonatomic, weak) IBOutlet UISwitch *thirdTrophySwitch;
+@property (nonatomic, weak) IBOutlet UISegmentedControl* levelSegmentedControl;
+@property (nonatomic, weak) IBOutlet UISwitch* firstTrophySwitch;
+@property (nonatomic, weak) IBOutlet UISwitch* secondTrophySwitch;
+@property (nonatomic, weak) IBOutlet UISwitch* thirdTrophySwitch;
 
-@property (nonatomic, weak) IBOutlet UISwitch *resolveConflictsSwitch;
+@property (nonatomic, weak) IBOutlet UISwitch* resolveConflictsSwitch;
 
 
 -(IBAction)nameTextFieldEditingDidEndOnExit:(UITextField*) sender;

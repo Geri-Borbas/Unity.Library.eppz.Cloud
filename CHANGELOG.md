@@ -1,5 +1,10 @@
 # eppz.Cloud
 
+* 0.6.2
+
+	+ Plain C plugin interface (with `NSString` parameters) for sandbox app usage
+	+ Removed string conversions from sandbox app `ViewController`
+
 * 0.6.0
 
 	+ Icons
