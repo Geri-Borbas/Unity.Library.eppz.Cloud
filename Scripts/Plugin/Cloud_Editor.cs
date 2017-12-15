@@ -38,8 +38,17 @@ namespace EPPZ.Cloud.Plugin
 		public override bool BoolForKey(string key)
 		{ return false; }
 
+		public override void SetStringForKey(string value, string key)
+		{ Debug.Log("Cloud_Editor.SetStringForKey(`"+value+"`, `"+key+"`)"); }
+
+		public override void SetFloatForKey(float value, string key)
+		{ Debug.Log("Cloud_Editor.SetFloatForKey(`"+value+"`, `"+key+"`)"); }
+
+		public override void SetIntForKey(int value, string key)
+		{ Debug.Log("Cloud_Editor.SetIntForKey(`"+value+"`, `"+key+"`)"); }
+
 		public override void SetBoolForKey(bool value, string key)
-		{ }
+		{ Debug.Log("Cloud_Editor.SetBoolForKey(`"+value+"`, `"+key+"`)"); }
 
 	#endregion
 	}

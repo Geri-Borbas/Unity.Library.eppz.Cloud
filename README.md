@@ -11,10 +11,10 @@ You can use it just like `PlayerPrefs`, if you don't need more control.
 
 ```csharp
 // Set values.
-cloud.SetStringForKey("eppz!", "name");
-cloud.SetFloatForKey(0.5f, "volume");
-cloud.SetIntForKey(4, "level");
-cloud.SetBoolForKey(true, "sound");
+Cloud.SetStringForKey("eppz!", "name");
+Cloud.SetFloatForKey(0.5f, "volume");
+Cloud.SetIntForKey(4, "level");
+Cloud.SetBoolForKey(true, "sound");
 
 // Get values.
 nameLabel.text = cloud.StringForKey("name");
@@ -45,7 +45,7 @@ It is probably best suitable for stuff like preferences / game progress. Files, 
 If you want to have a finer grained control over the details of synchronizing (key changes, conflict resolution, user changes), you'll probably like features below.
 
 ```csharp
-cloud.OnKeyChanged("gold", (int value) =>
+Cloud.OnKeyChange("gold", (int value) =>
 {
     if (value > user.golds)
     {
@@ -54,7 +54,7 @@ cloud.OnKeyChanged("gold", (int value) =>
     }
     else
     {
-        cloud.SetIntForKey(user.golds, "gold");
+        Cloud.SetIntForKey(user.golds, "gold");
     }
 });
 ```

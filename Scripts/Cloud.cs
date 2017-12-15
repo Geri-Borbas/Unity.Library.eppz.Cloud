@@ -5,6 +5,7 @@
 //  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 //  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,9 +20,11 @@ namespace EPPZ.Cloud
 	{
 
 
+		static Cloud _instance;
+		void Awake() { _instance = this; }
+
 		public Model.KeyValuePair[] keyValuePairs;
 		public bool initializeOnStart = true;
-
 		Plugin.Cloud plugin;
 
 
@@ -38,26 +41,96 @@ namespace EPPZ.Cloud
 
 	#region Features
 
-		void Synchrnonize()
-		{ plugin.Synchronize(); }
+		public static void Synchrnonize()
+		{ _instance.plugin.Synchronize(); }
 
-		public void CloudDidChange(string message)
-		{ plugin.CloudDidChange(message); }
+		public static void OnKeyChange(string key, Action<string> action)
+		{ _instance._OnKeyChange(key, action); }
 
-		public void SetBoolForKey(bool value, string key)
-		{ plugin.SetBoolForKey(value, key); }
+		public static void OnKeyChange(string key, Action<float> action)
+		{ _instance._OnKeyChange(key, action); }
 
-		public bool BoolForKey(string key)
-		{ return plugin.BoolForKey(key); }
+		public static void OnKeyChange(string key, Action<int> action)
+		{ _instance._OnKeyChange(key, action); }
+
+		public static void OnKeyChange(string key, Action<bool> action)
+		{ _instance._OnKeyChange(key, action); }
+
+		public static void RemoveOnKeyChangeAction(string key, Action<string> action)
+		{ _instance._RemoveOnKeyChangeAction(key, action); }
+
+		public static void RemoveOnKeyChangeAction(string key, Action<float> action)
+		{ _instance._RemoveOnKeyChangeAction(key, action); }
+
+		public static void RemoveOnKeyChangeAction(string key, Action<int> action)
+		{ _instance._RemoveOnKeyChangeAction(key, action); }
+
+		public static void RemoveOnKeyChangeAction(string key, Action<bool> action)
+		{ _instance._RemoveOnKeyChangeAction(key, action); }
+
+		public static void SetStringForKey(string value, string key)
+		{ _instance.plugin.SetStringForKey(value, key); }
+
+		public static string StringForKey(string key)
+		{ return _instance.plugin.StringForKey(key); }
+
+		public static void SetFloatForKey(float value, string key)
+		{ _instance.plugin.SetFloatForKey(value, key); }
+
+		public static float FloatForKey(string key)
+		{ return _instance.plugin.FloatForKey(key); }
+
+		public static void SetIntForKey(int value, string key)
+		{ _instance.plugin.SetIntForKey(value, key); }
+
+		public static int IntForKey(string key)
+		{ return _instance.plugin.IntForKey(key); }
+
+		public static void SetBoolForKey(bool value, string key)
+		{ _instance.plugin.SetBoolForKey(value, key); }
+
+		public static bool BoolForKey(string key)
+		{ return _instance.plugin.BoolForKey(key); }
 
 	#endregion
+
 	
+	#region Registering actions
+
+		Model.KeyValuePair KeyValuePairForKey(string key)
+		{
+			foreach (Model.KeyValuePair eachKeyValuePair in keyValuePairs)
+			{
+				if (eachKeyValuePair.key == key)
+				{ return eachKeyValuePair; }
+			}
+			Debug.LogWarning("eppz! Cloud: Cannot find registered key for `"+key+"`.");
+			return null;
+		}
+
+		void _RemoveOnKeyChangeAction(string key, object action)
+		{
+			Model.KeyValuePair keyValuePair = KeyValuePairForKey(key);
+			if (keyValuePair != null) { keyValuePair.RemoveOnChangeAction(action); }
+		}
+
+		void _OnKeyChange(string key, object action)
+		{
+			Model.KeyValuePair keyValuePair = KeyValuePairForKey(key);
+			if (keyValuePair != null) { keyValuePair.AddOnChangeAction(action); }
+		}
+
+	#endregion
+
 
 	#region Plugin callbacks (from whichever platform)
 
 		[ContextMenu("SimulateCloudDidChange()")]
 		public void SimulateCloudDidChange()
 		{ plugin.CloudDidChange("Simulate"); }
+
+		public void CloudDidChange(string message)
+		{ plugin.CloudDidChange(message); }
 
 		public void OnKeysChanged(string[] changedKeys, Plugin.Cloud.ChangeReason changeReason)
 		{
@@ -69,7 +142,7 @@ namespace EPPZ.Cloud
 				{
 					// Invoke event (if any).
 					if (eachKeyValuePair.key == eachChangedKey)
-					{ eachKeyValuePair.InvokeOnValueChangedEventWithCloud(this); }
+					{ eachKeyValuePair.InvokeOnValueChangedAction(); }
 				}
 			}
 		}

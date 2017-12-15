@@ -1,5 +1,27 @@
 # eppz.Cloud
 
+* Doing
+
+	+ Conflict resolving action hooking not works with function declarations
+	+ Editor cloud simulation
+	+ Visual clue when a key changed (?)
+	+ Change reason in callbacks
+	+ Arbitrary `OnCloudChange` callback
+
+* 0.9.0
+
+	+ `Scenes`
+		+ Sandbox scene `Controller` implemented
+		+ UI events hooked up
+		+ `Canvas` and `Cloud` serialized to prefabs as well
+	+ `Cloud`
+		+ Made public features static
+		+ Hooked up event registering
+	+ `Model.KeyValuePair`
+		+ Model holds the actions registered for on change events
+	+ `Plugin.Cloud_Editor`
+		+ Some logging when values set
+
 * 0.7.0
 
 	+ Built Unity sandbox scene (`Cloud.unity`) test UI
