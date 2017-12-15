@@ -8,6 +8,11 @@
 	+ Change reason in callbacks
 	+ Arbitrary `OnCloudChange` callback
 
+* 0.9.1
+
+	+ `Scenes`
+		+ Added UI helpers to plugin namespace
+
 * 0.9.0
 
 	+ `Scenes`
