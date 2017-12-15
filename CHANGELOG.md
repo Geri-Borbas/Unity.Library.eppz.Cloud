@@ -1,5 +1,9 @@
 # eppz.Cloud
 
+* 0.7.0
+
+	+ Built Unity sandbox scene (`Cloud.unity`) test UI
+
 * 0.6.3
 
 	+ Modeled iOS notification payload
