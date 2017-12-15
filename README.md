@@ -45,23 +45,31 @@ It is probably best suitable for stuff like preferences / game progress. Files, 
 If you want to have a finer grained control over the details of synchronizing (key changes, conflict resolution, user changes), you'll probably like features below.
 
 ```csharp
+// Keep UI in sync with cloud content.
+Cloud.OnKeyChange("gold", (int value) =>
+{ goldLabel.text = value; });
+```
+
+```csharp
+// Simple resolution if local and remote values differ.
 Cloud.OnKeyChange("gold", (int value) =>
 {
-    if (value > user.golds)
+	bool isConflict = (user.golds != value);
+    if (isConflict)
     {
-        user.golds = value;
-        UI.UpdateGolds();
-    }
-    else
-    {
+    	// Resolve strategy.
+    	user.golds = Math.Max(user.golds, value);
+    	// Sync (if any) new value.
         Cloud.SetIntForKey(user.golds, "gold");
+        // Show (if any) new value.
+    	goldLabel.text = user.golds;
     }
 });
 ```
 
-You can implement you own conflict resolution strategy at each value change callbacks. Also by these live callback you have the opportunity to update the game state / UI state on the fly.
+You can implement you own conflict resolution strategy at each value change callbacks. Also by these live callbacks you have the opportunity to update the game state / UI state on the fly.
 
-On each callback, you'll have a paramerer `changeReason` that holds the reason for the given cloud update. Please note that when a cloud update occurs due to a user change (use signed out from iCloud, then signed in with a different user), you'll have to overwrite the game states without orchestrating any conflict resolution.
+On each callback, you can poll a paramerer `Cloud.latestChangeReason` that holds the reason for the given cloud update. Please note that when a cloud update occurs due to a user change (use signed out from iCloud, then signed in with a different user), you'll probably have to overwrite the game states without orchestrating any conflict resolution.
 
 
 ## Best practice for resolving conflicts
