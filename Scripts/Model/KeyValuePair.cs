@@ -43,6 +43,7 @@ namespace EPPZ.Cloud.Model
 
 		public KeyValuePair()
 		{
+			onChangeActions = new List<object>();
 			invokersForTypes = new Dictionary<Type, Action<object>>{
 				{
 					Type.String, (object eachAction) =>
@@ -65,6 +66,9 @@ namespace EPPZ.Cloud.Model
 
 		public void InvokeOnValueChangedAction()
 		{
+			Debug.Log("InvokeOnValueChangedAction()");
+			Debug.Log("onChangeActions.Count: "+onChangeActions.Count);
+
 			if (onChangeActions.Count == 0) return; // Only if any
 
 			// Invoke each registered change listener actions.

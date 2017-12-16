@@ -34,6 +34,9 @@ namespace EPPZ.Cloud.Scenes
 		public Elements elements;
 
 
+		void Start()
+		{ AddElementUpdatingActions(); }
+
 	#region UI Events
 
 		public void OnNameInputFieldEndEdit(string text)

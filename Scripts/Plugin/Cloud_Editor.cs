@@ -18,38 +18,49 @@ namespace EPPZ.Cloud.Plugin
 	{
 
 
-		string gameObjectName;
+		Model.Simulation.KeyValueStore keyValueStore { get { return EPPZ.Cloud.Cloud.SimulationKeyValueStore(); } }
 		
 
 	#region Features
 
-		public override void InitializeWithGameObjectName(string gameObjectName)
-		{ this.gameObjectName = gameObjectName; }
+		public override string StringForKey(string key)
+		{ return keyValueStore.KeyValuePairForKey(key).stringValue; }
 
-		public override void Synchronize()
-		{ }
-
-		public override void CloudDidChange(string message)
+		public override void SetStringForKey(string value, string key)
 		{
-			string[] changedKeys = new string[] {"unlock", "hint", "solve"};
-			cloudObject.OnKeysChanged(changedKeys, Cloud.ChangeReason.ServerChange);
+			Debug.Log("Cloud_Editor.SetStringForKey(`"+value+"`, `"+key+"`)");
+			keyValueStore.KeyValuePairForKey(key).stringValue = value;
+		}
+
+		public override float FloatForKey(string key)
+		{ return keyValueStore.KeyValuePairForKey(key).floatValue; }
+
+		public override void SetFloatForKey(float value, string key)
+		{
+			Debug.Log("Cloud_Editor.SetFloatForKey(`"+value+"`, `"+key+"`)");
+			keyValueStore.KeyValuePairForKey(key).floatValue = value;
+		}
+
+		public override int IntForKey(string key)
+		{ return keyValueStore.KeyValuePairForKey(key).intValue; }
+
+		public override void SetIntForKey(int value, string key)
+		{
+			Debug.Log("Cloud_Editor.SetIntForKey(`"+value+"`, `"+key+"`)");
+			keyValueStore.KeyValuePairForKey(key).intValue = value;
 		}
 
 		public override bool BoolForKey(string key)
-		{ return false; }
-
-		public override void SetStringForKey(string value, string key)
-		{ Debug.Log("Cloud_Editor.SetStringForKey(`"+value+"`, `"+key+"`)"); }
-
-		public override void SetFloatForKey(float value, string key)
-		{ Debug.Log("Cloud_Editor.SetFloatForKey(`"+value+"`, `"+key+"`)"); }
-
-		public override void SetIntForKey(int value, string key)
-		{ Debug.Log("Cloud_Editor.SetIntForKey(`"+value+"`, `"+key+"`)"); }
+		{ return keyValueStore.KeyValuePairForKey(key).boolValue; }
 
 		public override void SetBoolForKey(bool value, string key)
-		{ Debug.Log("Cloud_Editor.SetBoolForKey(`"+value+"`, `"+key+"`)"); }
+		{
+			Debug.Log("Cloud_Editor.SetBoolForKey(`"+value+"`, `"+key+"`)");
+			keyValueStore.KeyValuePairForKey(key).boolValue = value;
+		}
 
 	#endregion
+
+	
 	}
 }

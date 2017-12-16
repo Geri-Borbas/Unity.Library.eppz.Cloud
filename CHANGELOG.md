@@ -3,10 +3,22 @@
 * Doing
 
 	+ Conflict resolving action hooking not works with function declarations
-	+ Editor cloud simulation
 	+ Visual clue when a key changed (?)
-	+ Change reason in callbacks
 	+ Arbitrary `OnCloudChange` callback
+
+* 0.9.8
+
+	+ Testing / Model
+		+ Key-value definitions is now in asset `eppz!/Cloud/Settings`
+			+ Holds array of `KeyValuePair` definitions
+		+ Editor cloud simulation in asset `eppz!/Cloud/Key-value store simulation`
+			+ `Model.Simulation.KeyValueStore`
+				+ Holds simulated key-value pairs
+				+ Can invoke a simulated `CloudDidChange` event from inspector
+					+ It results in the very same (!) method call that native plugins call from their respective codebase
+				+ Custom inspectors / property drawers to somewhat declutter simulation experience
+			+ Plugin class `Cloud_Editor` uses it to source accessors
+		+ Change reason in callbacks
 
 * 0.9.1
 

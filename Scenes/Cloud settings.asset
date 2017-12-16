@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4588d2df5bcf54e2a930279619bf339b, type: 3}
+  m_Name: Cloud settings
+  m_EditorClassIdentifier: 
+  keyValuePairs:
+  - key: name
+    type: 0
+  - key: sound
+    type: 3
+  - key: volume
+    type: 1
+  - key: level
+    type: 2
+  - key: firstTrophy
+    type: 3
+  - key: secondTrophy
+    type: 3
+  - key: thirdTrophy
+    type: 3
+  initializeOnStart: 1

@@ -51,19 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 152cec88ec45e4d15bb3480e586ce61d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyValuePairs:
-  - key: name
-    type: 0
-  - key: sound
-    type: 3
-  - key: volume
-    type: 1
-  - key: level
-    type: 2
-  - key: firstTrophy
-    type: 3
-  - key: secondTrophy
-    type: 3
-  - key: thirdTrophy
-    type: 3
-  initializeOnStart: 1
+  settings: {fileID: 11400000, guid: f4d4f2b9e57ac4604bea632f16b13f89, type: 2}
+  simulationKeyValueStore: {fileID: 11400000, guid: 1643b989550b54503acc07ca4904b83f,
+    type: 2}

@@ -23,8 +23,9 @@ namespace EPPZ.Cloud
 		static Cloud _instance;
 		void Awake() { _instance = this; }
 
-		public Model.KeyValuePair[] keyValuePairs;
-		public bool initializeOnStart = true;
+		
+		public Model.Settings settings;
+		public Model.Simulation.KeyValueStore simulationKeyValueStore;
 		Plugin.Cloud plugin;
 
 
@@ -32,7 +33,7 @@ namespace EPPZ.Cloud
 		{
 			// Create plugin instance (of whichever platform).
 			plugin = Plugin.Cloud.NativePluginInstance(this);
-			if (initializeOnStart) { Initialize(); }
+			if (settings.initializeOnStart) { Initialize(); }
 		}
 
 		public void Initialize()
@@ -94,29 +95,32 @@ namespace EPPZ.Cloud
 
 	#endregion
 
+
+	#region Simulation
+
+		public static Model.Simulation.KeyValueStore SimulationKeyValueStore()
+		{ return _instance.simulationKeyValueStore; }
+
+		public static void InvokeOnKeysChanged(string[] changedKeys, Plugin.Cloud.ChangeReason changeReason)
+		{
+			Debug.Log("InvokeOnKeysChanged(`"+changedKeys+"`, `"+changeReason+"`)");
+			_instance.OnKeysChanged(changedKeys, changeReason);
+		}
+
+	#endregion
+	
 	
 	#region Registering actions
 
-		Model.KeyValuePair KeyValuePairForKey(string key)
-		{
-			foreach (Model.KeyValuePair eachKeyValuePair in keyValuePairs)
-			{
-				if (eachKeyValuePair.key == key)
-				{ return eachKeyValuePair; }
-			}
-			Debug.LogWarning("eppz! Cloud: Cannot find registered key for `"+key+"`.");
-			return null;
-		}
-
 		void _RemoveOnKeyChangeAction(string key, object action)
 		{
-			Model.KeyValuePair keyValuePair = KeyValuePairForKey(key);
+			Model.KeyValuePair keyValuePair = settings.KeyValuePairForKey(key);
 			if (keyValuePair != null) { keyValuePair.RemoveOnChangeAction(action); }
 		}
 
 		void _OnKeyChange(string key, object action)
 		{
-			Model.KeyValuePair keyValuePair = KeyValuePairForKey(key);
+			Model.KeyValuePair keyValuePair = settings.KeyValuePairForKey(key);
 			if (keyValuePair != null) { keyValuePair.AddOnChangeAction(action); }
 		}
 
@@ -134,11 +138,13 @@ namespace EPPZ.Cloud
 
 		public void OnKeysChanged(string[] changedKeys, Plugin.Cloud.ChangeReason changeReason)
 		{
+			Debug.Log("OnKeysChanged(`"+changedKeys+"`, `"+changeReason+"`)");
+
 			// Enumerate changed keys.
 			foreach (string eachChangedKey in changedKeys)
 			{
 				// Lookup corresponding key value pair models.
-				foreach (Model.KeyValuePair eachKeyValuePair in keyValuePairs)
+				foreach (Model.KeyValuePair eachKeyValuePair in settings.keyValuePairs)
 				{
 					// Invoke event (if any).
 					if (eachKeyValuePair.key == eachChangedKey)
