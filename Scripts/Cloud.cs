@@ -16,16 +16,34 @@ namespace EPPZ.Cloud
 {
 
 
+	public enum ChangeReason
+    {
+	    ServerChange,
+     	InitialSyncChange,
+       	QuotaViolationChange,
+       	AccountChange
+    }
+
+
 	public class Cloud : MonoBehaviour, Plugin.ICloud
 	{
 
 
+		// Singleton.
 		static Cloud _instance;
 		void Awake() { _instance = this; }
 
-		
+		// Inspector hooks.
 		public Model.Settings settings;
 		public Model.Simulation.KeyValueStore simulationKeyValueStore;
+		
+		// Delegate.
+		public enum Should { UpdateKeys, StopUpdateKeys }
+		public delegate Should OnCloudChange(string[] changedKeys, ChangeReason changeReason);
+		public static OnCloudChange onCloudChange;
+
+		// Internal.
+		ChangeReason latestChangeReason;
 		Plugin.Cloud plugin;
 
 
@@ -93,6 +111,15 @@ namespace EPPZ.Cloud
 		public static bool BoolForKey(string key)
 		{ return _instance.plugin.BoolForKey(key); }
 
+		public static ChangeReason LatestChangeReason()
+		{ return _instance.latestChangeReason; }
+
+		public static void Log(string message)
+		{
+			if (_instance.settings.log)
+			{ Debug.Log(message); }
+		}
+
 	#endregion
 
 
@@ -101,10 +128,10 @@ namespace EPPZ.Cloud
 		public static Model.Simulation.KeyValueStore SimulationKeyValueStore()
 		{ return _instance.simulationKeyValueStore; }
 
-		public static void InvokeOnKeysChanged(string[] changedKeys, Plugin.Cloud.ChangeReason changeReason)
+		public static void InvokeOnKeysChanged(string[] changedKeys, ChangeReason changeReason)
 		{
-			Debug.Log("InvokeOnKeysChanged(`"+changedKeys+"`, `"+changeReason+"`)");
-			_instance.OnKeysChanged(changedKeys, changeReason);
+			Log("Cloud.InvokeOnKeysChanged(`"+changedKeys+"`, `"+changeReason+"`)");
+			_instance._OnCloudChange(changedKeys, changeReason);
 		}
 
 	#endregion
@@ -133,12 +160,22 @@ namespace EPPZ.Cloud
 		public void SimulateCloudDidChange()
 		{ plugin.CloudDidChange("Simulate"); }
 
-		public void CloudDidChange(string message)
+		public void _CloudDidChange(string message)
 		{ plugin.CloudDidChange(message); }
 
-		public void OnKeysChanged(string[] changedKeys, Plugin.Cloud.ChangeReason changeReason)
+		public void _OnCloudChange(string[] changedKeys, ChangeReason changeReason)
 		{
-			Debug.Log("OnKeysChanged(`"+changedKeys+"`, `"+changeReason+"`)");
+			Log("Cloud._OnCloudChange(`"+changedKeys+"`, `"+changeReason+"`)");
+
+			// Populate latest change reason.
+			latestChangeReason = changeReason;
+
+			// Lookup delegates if any.
+			if (onCloudChange != null)
+			{
+				Should should = onCloudChange(changedKeys, changeReason);
+				if (should == Should.StopUpdateKeys) { return; }
+			}
 
 			// Enumerate changed keys.
 			foreach (string eachChangedKey in changedKeys)

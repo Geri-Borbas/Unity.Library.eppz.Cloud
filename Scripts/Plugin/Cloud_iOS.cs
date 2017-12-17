@@ -64,41 +64,58 @@ namespace EPPZ.Cloud.Plugin
 
 		public override void CloudDidChange(string message)
 		{
+			Log("Cloud_iOS.CloudDidChange(`"+message+"`)");
+
 			// Parse JSON.
 			iOS.UserInfo userInfo = new iOS.UserInfo();
 			JsonUtility.FromJsonOverwrite(message, userInfo);
 			
 			// Get notification payload.
-			Cloud.ChangeReason changeReason = (Cloud.ChangeReason)userInfo.NSUbiquitousKeyValueStoreChangeReasonKey;
+			ChangeReason changeReason = (ChangeReason)userInfo.NSUbiquitousKeyValueStoreChangeReasonKey;
 			string[] changedKeys = userInfo.NSUbiquitousKeyValueStoreChangedKeysKey;
 
+			Log("Cloud_iOS.CloudDidChange.changeReason: `"+changeReason+"`");
+			Log("Cloud_iOS.CloudDidChange.changedKeys: `"+changedKeys+"`");
+
 			// Callback.
-			cloudObject.OnKeysChanged(changedKeys, changeReason);
+			cloudObject._OnCloudChange(changedKeys, changeReason);
 		}
 
 		public override string StringForKey(string key)
 		{ return EPPZ_Cloud_StringForKey(key); }
 
 		public override void SetStringForKey(string value, string key)
-		{ EPPZ_Cloud_SetStringForKey(value, key); }
+		{
+			Log("Cloud_iOS.SetStringForKey(`"+value+"`, `"+key+"`)");
+			EPPZ_Cloud_SetStringForKey(value, key);
+		}
 
 		public override float FloatForKey(string key)
 		{ return EPPZ_Cloud_FloatForKey(key); }
 
 		public override void SetFloatForKey(float value, string key)
-		{ EPPZ_Cloud_SetFloatForKey(value, key); }
+		{
+			Log("Cloud_iOS.SetFloatForKey(`"+value+"`, `"+key+"`)");
+			EPPZ_Cloud_SetFloatForKey(value, key);
+		}
 
 		public override int IntForKey(string key)
 		{ return EPPZ_Cloud_IntForKey(key); }
 
 		public override void SetIntForKey(int value, string key)
-		{ EPPZ_Cloud_SetIntForKey(value, key); }
+		{
+			Log("Cloud_iOS.SetIntForKey(`"+value+"`, `"+key+"`)");
+			EPPZ_Cloud_SetIntForKey(value, key);
+		}
 
 		public override bool BoolForKey(string key)
 		{ return EPPZ_Cloud_BoolForKey(key); }
 
 		public override void SetBoolForKey(bool value, string key)
-		{ EPPZ_Cloud_SetBoolForKey(value, key); }
+		{
+			Log("Cloud_iOS.SetBoolForKey(`"+value+"`, `"+key+"`)");
+			EPPZ_Cloud_SetBoolForKey(value, key);
+		}
 
 	#endregion
 

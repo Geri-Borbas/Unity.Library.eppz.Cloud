@@ -2,8 +2,18 @@
 
 * Doing
 
+	+ Test on device
+		+ Test change reasons
+		+ Test account change
+
+* 0.9.9
+
 	+ Arbitrary `OnCloudChange` callback
+		+ Can prevent `Cloud` from updating keys upon given circumstances
+			+ Should turn off conflict reolution here at least
 	+ Populate `latestChangeReason`
+		+ `ChangeReason` enum is shared across `EPPZ.Cloud` namespace
+	+ Logging can be switched from `Model.Settings`
 
 * 0.9.85
 

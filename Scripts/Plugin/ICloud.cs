@@ -19,7 +19,7 @@ namespace EPPZ.Cloud.Plugin
     {
         
 
-        void CloudDidChange(string message); // To be messaged from native code
-        void OnKeysChanged(string[] changedKeys, Cloud.ChangeReason changeReason); // To be called from plugin
+        void _CloudDidChange(string message); // To be messaged from native code
+        void _OnCloudChange(string[] changedKeys, ChangeReason changeReason); // To be called from plugin
 	}
 }

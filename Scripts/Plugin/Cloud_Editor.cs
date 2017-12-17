@@ -28,7 +28,7 @@ namespace EPPZ.Cloud.Plugin
 
 		public override void SetStringForKey(string value, string key)
 		{
-			Debug.Log("Cloud_Editor.SetStringForKey(`"+value+"`, `"+key+"`)");
+			Log("Cloud_Editor.SetStringForKey(`"+value+"`, `"+key+"`)");
 			keyValueStore.KeyValuePairForKey(key).stringValue = value;
 		}
 
@@ -37,7 +37,7 @@ namespace EPPZ.Cloud.Plugin
 
 		public override void SetFloatForKey(float value, string key)
 		{
-			Debug.Log("Cloud_Editor.SetFloatForKey(`"+value+"`, `"+key+"`)");
+			Log("Cloud_Editor.SetFloatForKey(`"+value+"`, `"+key+"`)");
 			keyValueStore.KeyValuePairForKey(key).floatValue = value;
 		}
 
@@ -46,7 +46,7 @@ namespace EPPZ.Cloud.Plugin
 
 		public override void SetIntForKey(int value, string key)
 		{
-			Debug.Log("Cloud_Editor.SetIntForKey(`"+value+"`, `"+key+"`)");
+			Log("Cloud_Editor.SetIntForKey(`"+value+"`, `"+key+"`)");
 			keyValueStore.KeyValuePairForKey(key).intValue = value;
 		}
 
@@ -55,7 +55,7 @@ namespace EPPZ.Cloud.Plugin
 
 		public override void SetBoolForKey(bool value, string key)
 		{
-			Debug.Log("Cloud_Editor.SetBoolForKey(`"+value+"`, `"+key+"`)");
+			Log("Cloud_Editor.SetBoolForKey(`"+value+"`, `"+key+"`)");
 			keyValueStore.KeyValuePairForKey(key).boolValue = value;
 		}
 

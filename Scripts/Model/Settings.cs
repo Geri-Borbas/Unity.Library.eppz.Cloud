@@ -23,6 +23,7 @@ namespace EPPZ.Cloud.Model
 
 		public Model.KeyValuePair[] keyValuePairs;
 		public bool initializeOnStart = true;
+		public bool log = true;
 
 
         public Model.KeyValuePair KeyValuePairForKey(string key)

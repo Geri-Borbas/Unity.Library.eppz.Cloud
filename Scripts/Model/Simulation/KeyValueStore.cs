@@ -24,7 +24,7 @@ namespace EPPZ.Cloud.Model.Simulation
     {
 
 
-        public Cloud.ChangeReason changeReason;
+        public ChangeReason changeReason;
 		public KeyValuePair[] keyValuePairs;
         public Cloud_Editor plugin;
 

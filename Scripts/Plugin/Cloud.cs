@@ -17,15 +17,7 @@ namespace EPPZ.Cloud.Plugin
 	public class Cloud
 	{
 
-		public enum ChangeReason
-    	{
-	        ServerChange,
-        	InitialSyncChange,
-        	QuotaViolationChange,
-        	AccountChange
-    	}
-
-
+		
 		protected ICloud cloudObject;
 
 
@@ -72,6 +64,9 @@ namespace EPPZ.Cloud.Plugin
 		public virtual void SetBoolForKey(bool value, string key) { }
 
 		public virtual void CloudDidChange(string message) { }
+
+		protected void Log(string message)
+		{ EPPZ.Cloud.Cloud.Log(message); }
 
 	#endregion
 	

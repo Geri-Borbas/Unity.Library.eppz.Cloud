@@ -15,7 +15,7 @@ MonoBehaviour:
   keyValuePairs:
   - key: name
     type: 0
-    isChanged: 1
+    isChanged: 0
     stringValue: eppz!
     floatValue: 0
     intValue: 0
@@ -29,20 +29,20 @@ MonoBehaviour:
     intValue: 0
     boolValue: 1
     foldedOut: 1
-  - key: voume
+  - key: volume
     type: 1
     isChanged: 0
     stringValue: 
-    floatValue: 0.5
+    floatValue: 0.24768347
     intValue: 0
     boolValue: 0
     foldedOut: 1
   - key: level
     type: 2
-    isChanged: 0
+    isChanged: 1
     stringValue: 
     floatValue: 10
-    intValue: 4
+    intValue: 2
     boolValue: 0
     foldedOut: 1
   - key: firstTrophy
@@ -51,7 +51,7 @@ MonoBehaviour:
     stringValue: 
     floatValue: 10
     intValue: 0
-    boolValue: 0
+    boolValue: 1
     foldedOut: 1
   - key: secondTrophy
     type: 3
@@ -59,7 +59,7 @@ MonoBehaviour:
     stringValue: 
     floatValue: 10
     intValue: 0
-    boolValue: 0
+    boolValue: 1
     foldedOut: 1
   - key: thirdTrophy
     type: 3
@@ -67,5 +67,5 @@ MonoBehaviour:
     stringValue: 
     floatValue: 10
     intValue: 0
-    boolValue: 0
+    boolValue: 1
     foldedOut: 1

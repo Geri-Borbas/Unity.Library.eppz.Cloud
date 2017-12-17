@@ -49,8 +49,39 @@ namespace EPPZ.Cloud.Scenes
 
 
 		void Start()
-		{ AddElementUpdatingActions(); }
+		{
+			Cloud.onCloudChange += OnCloudChange;
+			AddElementUpdatingActions();
+		}
 
+		Cloud.Should OnCloudChange(string[] changedKeys, ChangeReason changeReason)
+		{
+			if (changeReason == ChangeReason.InitialSyncChange)
+			{
+				// Initial sync will (?) report every key to be changed.
+				// Should turn off any conflict resolution here.
+				return Cloud.Should.UpdateKeys;
+			}
+
+			if (changeReason == ChangeReason.QuotaViolationChange)
+			{
+				// May display error to user (that iCloud has run out of space).
+				return Cloud.Should.StopUpdateKeys;
+			}
+
+			if (changeReason == ChangeReason.AccountChange)
+			{
+				// May reload scene (force reload and update everything).
+				// Should turn off any conflict resolution here (this is similar to `InitialSyncChange`).
+				return Cloud.Should.StopUpdateKeys;
+			}
+
+			else // ChangeReason.ServerChange
+			{
+				// Let local states to be updated.
+				return Cloud.Should.UpdateKeys;
+			}
+		}
 
 	#region UI Events
 
