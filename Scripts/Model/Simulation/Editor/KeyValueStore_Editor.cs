@@ -23,14 +23,14 @@ namespace EPPZ.Cloud.Model.Simulation
         
         public override void OnInspectorGUI()
         {
-            serializedObject.Update();
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("changeReason"));
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("keyValuePairs"), true);
-            serializedObject.ApplyModifiedProperties();
-
             KeyValueStore keyValueStore = (KeyValueStore)target;
-            if(GUILayout.Button("Simulate `CloudDidChange`"))
-            { keyValueStore.SimulateCloudDidChange(); }
+            serializedObject.Update();
+
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("changeReason"));
+            if (GUILayout.Button("Simulate `CloudDidChange`")) { keyValueStore.SimulateCloudDidChange(); }
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("keyValuePairs"), true);
+            
+            serializedObject.ApplyModifiedProperties();
         }
     }
 }

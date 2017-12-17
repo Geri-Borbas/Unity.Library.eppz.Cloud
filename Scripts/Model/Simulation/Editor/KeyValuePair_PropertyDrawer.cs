@@ -21,8 +21,12 @@ namespace EPPZ.Cloud.Model.Simulation
     {
 
 
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+        { return -2.0f; }
+
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {   
+            EditorGUILayout.BeginVertical(GUI.skin.GetStyle("HelpBox"));
             EditorGUI.BeginProperty(position, label, property);
             
             SerializedProperty keyProperty = property.FindPropertyRelative("key");
@@ -67,6 +71,7 @@ namespace EPPZ.Cloud.Model.Simulation
             }
 
             EditorGUI.EndProperty();
+            EditorGUILayout.EndVertical();
         }
     }
 }

@@ -24,18 +24,32 @@ namespace EPPZ.Cloud.Scenes
 		public class Elements
 		{
 			public InputField nameLabel;
+			public Animation nameLabelAnimation;
+			[Space]
 			public Toggle soundToggle;
+			public Animation soundToggleAnimation;
+			[Space]
 			public Slider volumeSlider;
+			public Animation volumeSliderAnimation;
+			[Space]
 			public Dropdown levelDropdown;
+			public Animation levelDropdownAnimation;
+			[Space]
 			public Toggle firstTrophyToggle;
+			public Animation firstTrophyToggleAnimation;
+			[Space]
 			public Toggle secondTrophyToggle;
+			public Animation secondTrophyToggleAnimation;
+			[Space]
 			public Toggle thirdTrophyToggle;
+			public Animation thirdTrophyToggleAnimation;
 		}
 		public Elements elements;
 
 
 		void Start()
 		{ AddElementUpdatingActions(); }
+
 
 	#region UI Events
 
@@ -92,25 +106,46 @@ namespace EPPZ.Cloud.Scenes
 		void AddElementUpdatingActions()
 		{
 			Cloud.OnKeyChange("name", (string value) =>
-			{ elements.nameLabel.text = value; });
+			{
+				elements.nameLabel.text = value;
+				elements.nameLabelAnimation.Play("Blink");
+			});
 
 			Cloud.OnKeyChange("sound", (bool value) =>
-			{ elements.soundToggle.isOn = value; });
+			{
+				elements.soundToggle.isOn = value;
+				elements.nameLabelAnimation.Play("Blink");
+			});
 
 			Cloud.OnKeyChange("volume", (float value) =>
-			{ elements.volumeSlider.value = value; });
+			{
+				elements.volumeSlider.value = value;
+				elements.nameLabelAnimation.Play("Blink");
+			});
 
 			Cloud.OnKeyChange("level", (int value) =>
-			{ elements.levelDropdown.value = value; });
+			{
+				elements.levelDropdown.value = value;
+				elements.nameLabelAnimation.Play("Blink");
+			});
 
 			Cloud.OnKeyChange("firstTrophy", (bool value) =>
-			{ elements.firstTrophyToggle.isOn = value; });
+			{
+				elements.firstTrophyToggle.isOn = value;
+				elements.nameLabelAnimation.Play("Blink");
+			});
 
 			Cloud.OnKeyChange("secondTrophy", (bool value) =>
-			{ elements.secondTrophyToggle.isOn = value; });
+			{
+				elements.secondTrophyToggle.isOn = value;
+				elements.nameLabelAnimation.Play("Blink");
+			});
 
 			Cloud.OnKeyChange("thirdTrophy", (bool value) =>
-			{ elements.thirdTrophyToggle.isOn = value; });
+			{
+				elements.thirdTrophyToggle.isOn = value;
+				elements.nameLabelAnimation.Play("Blink");
+			});
 		}
 
 	#endregion

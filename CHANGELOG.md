@@ -3,8 +3,12 @@
 * Doing
 
 	+ Conflict resolving action hooking not works with function declarations
-	+ Visual clue when a key changed (?)
 	+ Arbitrary `OnCloudChange` callback
+
+* 0.9.81
+
+	+ Added slight visual clue when a key changed (`Blink` animation)
+	+ Fixes some inspector issues
 
 * 0.9.8
 
