@@ -2,10 +2,19 @@
 
 * Doing
 
-	+ Conflict resolving action hooking not works with function declarations
 	+ Arbitrary `OnCloudChange` callback
+	+ Populate `latestChangeReason`
+
+* 0.9.85
+
+	+ Hierarchy issue
+		+ Conflict resolving actions should be invoked before UI update
+			+ Added `priority` parameter to `OnKeyChange` (optional)
+			+ `KeyValuePair` sorts actions by `priority` on the fly
 
 * 0.9.81
+
+
 
 	+ Added slight visual clue when a key changed (`Blink` animation)
 	+ Fixes some inspector issues

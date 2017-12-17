@@ -5,6 +5,7 @@
 //  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 //  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -109,43 +110,43 @@ namespace EPPZ.Cloud.Scenes
 			{
 				elements.nameLabel.text = value;
 				elements.nameLabelAnimation.Play("Blink");
-			});
+			}, 2);
 
 			Cloud.OnKeyChange("sound", (bool value) =>
 			{
 				elements.soundToggle.isOn = value;
-				elements.nameLabelAnimation.Play("Blink");
-			});
+				elements.soundToggleAnimation.Play("Blink");
+			}, 2);
 
 			Cloud.OnKeyChange("volume", (float value) =>
 			{
 				elements.volumeSlider.value = value;
-				elements.nameLabelAnimation.Play("Blink");
-			});
+				elements.volumeSliderAnimation.Play("Blink");
+			}, 2);
 
 			Cloud.OnKeyChange("level", (int value) =>
 			{
 				elements.levelDropdown.value = value;
-				elements.nameLabelAnimation.Play("Blink");
-			});
+				elements.levelDropdownAnimation.Play("Blink");
+			}, 2);
 
 			Cloud.OnKeyChange("firstTrophy", (bool value) =>
 			{
 				elements.firstTrophyToggle.isOn = value;
-				elements.nameLabelAnimation.Play("Blink");
-			});
+				elements.firstTrophyToggleAnimation.Play("Blink");
+			}, 2);
 
 			Cloud.OnKeyChange("secondTrophy", (bool value) =>
 			{
 				elements.secondTrophyToggle.isOn = value;
-				elements.nameLabelAnimation.Play("Blink");
-			});
+				elements.secondTrophyToggleAnimation.Play("Blink");
+			}, 2);
 
 			Cloud.OnKeyChange("thirdTrophy", (bool value) =>
 			{
 				elements.thirdTrophyToggle.isOn = value;
-				elements.nameLabelAnimation.Play("Blink");
-			});
+				elements.thirdTrophyToggleAnimation.Play("Blink");
+			}, 2);
 		}
 
 	#endregion
@@ -155,10 +156,10 @@ namespace EPPZ.Cloud.Scenes
 
 		void AddConflictResolvingActions()
 		{
-			Cloud.OnKeyChange("level", ResolveConflictForLevel);
-			Cloud.OnKeyChange("firstTrophy", ResolveConflictForFirstTrophy);
-			Cloud.OnKeyChange("secondTrophy", ResolveConflictForSecondTrophy);
-			Cloud.OnKeyChange("thirdTrophy", ResolveConflictForThirdTrophy);
+			Cloud.OnKeyChange("level", ResolveConflictForLevel, 1);
+			Cloud.OnKeyChange("firstTrophy", ResolveConflictForFirstTrophy, 1);
+			Cloud.OnKeyChange("secondTrophy", ResolveConflictForSecondTrophy, 1);
+			Cloud.OnKeyChange("thirdTrophy", ResolveConflictForThirdTrophy, 1);
 		}
 
 		void RemoveConflictResolvingActions()
@@ -170,16 +171,59 @@ namespace EPPZ.Cloud.Scenes
 		}
 
 		void ResolveConflictForLevel(int value)
-		{ Debug.Log("Resolving confict for `level`."); }
+		{
+			Debug.Log("ResolveConflictForLevel("+value+")");
+
+			bool isConflict = (elements.levelDropdown.value != value);
+    		if (isConflict)
+    		{
+    			// Resolve strategy.
+    			elements.levelDropdown.value = Math.Max(elements.levelDropdown.value, value);
+    			OnLevelDropDownValueChanged(elements.levelDropdown.value);
+			}
+		}
 
 		void ResolveConflictForFirstTrophy(bool value)
-		{ Debug.Log("Resolving confict for `firstTrophy`."); }
+		{
+			Debug.Log("ResolveConflictForFirstTrophy("+value+")");
+
+			bool isConflict = (elements.firstTrophyToggle.isOn != value);
+    		if (isConflict)
+    		{
+    			// Resolve strategy.
+    			elements.firstTrophyToggle.isOn = elements.firstTrophyToggle.isOn || value;
+				// Update UI and Sync.
+    			OnFirstTrophyToggleValueChanged(elements.firstTrophyToggle.isOn);
+			};
+		}
 
 		void ResolveConflictForSecondTrophy(bool value)
-		{ Debug.Log("Resolving confict for `secondTrophy`."); }
+		{
+			Debug.Log("ResolveConflictForSecondTrophy("+value+")");
+
+			bool isConflict = (elements.secondTrophyToggle.isOn != value);
+    		if (isConflict)
+    		{
+    			// Resolve strategy.
+    			elements.secondTrophyToggle.isOn = elements.secondTrophyToggle.isOn || value;
+				// Update UI and Sync.
+    			OnSecondTrophyToggleValueChanged(elements.secondTrophyToggle.isOn);
+			};
+		}
 
 		void ResolveConflictForThirdTrophy(bool value)
-		{ Debug.Log("Resolving confict for `thirdTrophy`."); }
+		{
+			Debug.Log("ResolveConflictForThirdTrophy("+value+")");
+
+			bool isConflict = (elements.thirdTrophyToggle.isOn != value);
+    		if (isConflict)
+    		{
+    			// Resolve strategy.
+    			elements.thirdTrophyToggle.isOn = elements.thirdTrophyToggle.isOn || value;
+				// Update UI and Sync.
+    			OnThirdTrophyToggleValueChanged(elements.thirdTrophyToggle.isOn); 
+			};
+		}
 
 	#endregion
 

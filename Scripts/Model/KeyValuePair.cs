@@ -6,6 +6,7 @@
 //  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,14 +37,14 @@ namespace EPPZ.Cloud.Model
 		System.Type actionType { get { return actionTypesForTypes[type]; } }
 
 
-		List<object> onChangeActions;
+		Dictionary<int, object> onChangeActions;
 		Dictionary<Type, Action<object>> invokersForTypes;
 		Action<object> invoker { get { return invokersForTypes[type]; } }
 
 
 		public KeyValuePair()
 		{
-			onChangeActions = new List<object>();
+			onChangeActions = new Dictionary<int, object>();
 			invokersForTypes = new Dictionary<Type, Action<object>>{
 				{
 					Type.String, (object eachAction) =>
@@ -71,12 +72,16 @@ namespace EPPZ.Cloud.Model
 
 			if (onChangeActions.Count == 0) return; // Only if any
 
-			// Invoke each registered change listener actions.
-			foreach (object eachOnChangeAction in onChangeActions)
-			{ invoker(eachOnChangeAction); }
+			// Sort priorities.
+			List<int> priorities = onChangeActions.Keys.ToList();
+        	priorities.Sort();
+
+        	// Enumerate actions (and invoke) based upon sorted priorities.
+        	foreach (int eachPriority in priorities)
+        	{ invoker(onChangeActions[eachPriority]); }
 		}
 
-		public void AddOnChangeAction(object action)
+		public void AddOnChangeAction(object action, int priority)
 		{
 			if (action.GetType() != actionType)
 			{
@@ -84,13 +89,14 @@ namespace EPPZ.Cloud.Model
 				return;
 			}
 			
-			onChangeActions.Add(action);
+			onChangeActions.Add(priority, action);
 		}
 
 		public void RemoveOnChangeAction(object action)
 		{
-			if (onChangeActions.Contains(action))
-			{ onChangeActions.Remove(action); }
+			// Remove every matching value.
+			foreach(KeyValuePair<int, object> eachKeyValuePair in onChangeActions.Where(keyValuePair => keyValuePair.Value == action).ToList())
+			{ onChangeActions.Remove(eachKeyValuePair.Key); }
 		}
 
 		public string stringValue

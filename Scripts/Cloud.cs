@@ -45,17 +45,17 @@ namespace EPPZ.Cloud
 		public static void Synchrnonize()
 		{ _instance.plugin.Synchronize(); }
 
-		public static void OnKeyChange(string key, Action<string> action)
-		{ _instance._OnKeyChange(key, action); }
+		public static void OnKeyChange(string key, Action<string> action, int priority = 0)
+		{ _instance._OnKeyChange(key, action, priority); }
 
-		public static void OnKeyChange(string key, Action<float> action)
-		{ _instance._OnKeyChange(key, action); }
+		public static void OnKeyChange(string key, Action<float> action, int priority = 0)
+		{ _instance._OnKeyChange(key, action, priority); }
 
-		public static void OnKeyChange(string key, Action<int> action)
-		{ _instance._OnKeyChange(key, action); }
+		public static void OnKeyChange(string key, Action<int> action, int priority = 0)
+		{ _instance._OnKeyChange(key, action, priority); }
 
-		public static void OnKeyChange(string key, Action<bool> action)
-		{ _instance._OnKeyChange(key, action); }
+		public static void OnKeyChange(string key, Action<bool> action, int priority = 0)
+		{ _instance._OnKeyChange(key, action, priority); }
 
 		public static void RemoveOnKeyChangeAction(string key, Action<string> action)
 		{ _instance._RemoveOnKeyChangeAction(key, action); }
@@ -118,10 +118,10 @@ namespace EPPZ.Cloud
 			if (keyValuePair != null) { keyValuePair.RemoveOnChangeAction(action); }
 		}
 
-		void _OnKeyChange(string key, object action)
+		void _OnKeyChange(string key, object action, int priority)
 		{
 			Model.KeyValuePair keyValuePair = settings.KeyValuePairForKey(key);
-			if (keyValuePair != null) { keyValuePair.AddOnChangeAction(action); }
+			if (keyValuePair != null) { keyValuePair.AddOnChangeAction(action, priority); }
 		}
 
 	#endregion
