@@ -3,9 +3,17 @@
 * Doing
 
 	+ Fix plugin sandbox project
+	+ Particle on refresh
 	+ Test on device
-		+ Test change reasons
 		+ Test account change
+
+* 1.0.1 - 1.0.2
+
+	+ Initial load (`PopulateElementsFromCloud()`)
+	+ Project settings
+	+ Editor `AccountChange` test
+		+ Added one more cloud simulation data
+		+ Conflict resolution gets override
 
 * 1.0.0
 

@@ -52,33 +52,43 @@ namespace EPPZ.Cloud.Scenes
 		{
 			Cloud.onCloudChange += OnCloudChange;
 			AddElementUpdatingActions();
+			PopulateElementsFromCloud();
+		}
+
+		void PopulateElementsFromCloud()
+		{
+			elements.nameLabel.text = Cloud.StringForKey("name");
+			elements.soundToggle.isOn = Cloud.BoolForKey("sound");
+			elements.volumeSlider.value = Cloud.FloatForKey("volume");
+			elements.levelDropdown.value = Cloud.IntForKey("level");
+			elements.firstTrophyToggle.isOn = Cloud.BoolForKey("firstTrophy");
+			elements.secondTrophyToggle.isOn = Cloud.BoolForKey("secondTrophy");
+			elements.thirdTrophyToggle.isOn = Cloud.BoolForKey("thirdTrophy");
 		}
 
 		Cloud.Should OnCloudChange(string[] changedKeys, ChangeReason changeReason)
 		{
 			if (changeReason == ChangeReason.InitialSyncChange)
 			{
-				// Initial sync will (?) report every key to be changed.
-				// Should turn off any conflict resolution here.
-				return Cloud.Should.UpdateKeys;
+				PopulateElementsFromCloud();
+				return Cloud.Should.StopUpdateKeys;
 			}
 
 			if (changeReason == ChangeReason.QuotaViolationChange)
 			{
-				// May display error to user (that iCloud has run out of space).
+				// May display error.
 				return Cloud.Should.StopUpdateKeys;
 			}
 
 			if (changeReason == ChangeReason.AccountChange)
 			{
-				// May reload scene (force reload and update everything).
-				// Should turn off any conflict resolution here (this is similar to `InitialSyncChange`).
+				PopulateElementsFromCloud();
 				return Cloud.Should.StopUpdateKeys;
 			}
 
-			else // ChangeReason.ServerChange
+			else
 			{
-				// Let local states to be updated.
+				// Let local states to be updated (with conflict resolution).
 				return Cloud.Should.UpdateKeys;
 			}
 		}

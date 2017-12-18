@@ -9,14 +9,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 439a4fcab17fd454bb91bf392ed12769, type: 3}
-  m_Name: Key-value store simulation (user 1.)
+  m_Name: Key-value store simulation (user 2.)
   m_EditorClassIdentifier: 
-  changeReason: 0
+  changeReason: 3
   keyValuePairs:
   - key: name
     type: 0
     isChanged: 0
-    stringValue: eppz!
+    stringValue: Geri
     floatValue: 0
     intValue: 0
     boolValue: 0
@@ -33,7 +33,7 @@ MonoBehaviour:
     type: 1
     isChanged: 0
     stringValue: 
-    floatValue: 0.25
+    floatValue: 0.85
     intValue: 0
     boolValue: 0
     foldedOut: 1
@@ -42,7 +42,7 @@ MonoBehaviour:
     isChanged: 1
     stringValue: 
     floatValue: 10
-    intValue: 4
+    intValue: 2
     boolValue: 0
     foldedOut: 1
   - key: firstTrophy
@@ -59,7 +59,7 @@ MonoBehaviour:
     stringValue: 
     floatValue: 10
     intValue: 0
-    boolValue: 1
+    boolValue: 0
     foldedOut: 1
   - key: thirdTrophy
     type: 3
@@ -67,5 +67,5 @@ MonoBehaviour:
     stringValue: 
     floatValue: 10
     intValue: 0
-    boolValue: 1
+    boolValue: 0
     foldedOut: 1
