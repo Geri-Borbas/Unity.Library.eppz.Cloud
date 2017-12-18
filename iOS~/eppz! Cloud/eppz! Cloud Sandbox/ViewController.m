@@ -14,10 +14,8 @@
 #import "ViewController.h"
 
 
-
-
-
-
+extern void UnitySendMessage(const char* gameObjectName, const char* methodName, const char* message)
+{ }
 
 
 @interface ViewController ()
@@ -46,8 +44,8 @@
     
     // Initialize plugin.
     [EPPZ_Cloud setDelegate:self];
-    EPPZ_Cloud_InitializeWithGameObjectName(@"eppz! Cloud");
-    EPPZ_Cloud_Synchronize();
+    _EPPZ_Cloud_InitializeWithGameObjectName(@"eppz! Cloud");
+    _EPPZ_Cloud_Synchronize();
  
     // Invoke every `onChange` action.
     for (void (^eachBlock)(void) in self.uiUpdatingOnChangeActionsForKeys.allValues)
@@ -65,37 +63,37 @@
         NameKey :
         ^{
             NSLog(@"ViewController.uiUpdatingOnChangeActionsForKeys[\"%@\"]()", NameKey);
-            [self.nameTextField setText:EPPZ_Cloud_StringForKey(NameKey)];
+            [self.nameTextField setText:_EPPZ_Cloud_StringForKey(NameKey)];
         },
         SoundKey :
         ^{
             NSLog(@"ViewController.uiUpdatingOnChangeActionsForKeys[\"%@\"]()", SoundKey);
-            [self.soundSwitch setOn:EPPZ_Cloud_BoolForKey(SoundKey) animated:YES];
+            [self.soundSwitch setOn:_EPPZ_Cloud_BoolForKey(SoundKey) animated:YES];
         },
         VolumeKey :
         ^{
             NSLog(@"ViewController.uiUpdatingOnChangeActionsForKeys[\"%@\"]()", VolumeKey);
-            [self.volumeSlider setValue:EPPZ_Cloud_FloatForKey(VolumeKey) animated:YES];
+            [self.volumeSlider setValue:_EPPZ_Cloud_FloatForKey(VolumeKey) animated:YES];
         },
         LevelKey :
         ^{
             NSLog(@"ViewController.uiUpdatingOnChangeActionsForKeys[\"%@\"]()", LevelKey);
-            [self.levelSegmentedControl setSelectedSegmentIndex:EPPZ_Cloud_IntForKey(LevelKey)];
+            [self.levelSegmentedControl setSelectedSegmentIndex:_EPPZ_Cloud_IntForKey(LevelKey)];
         },
         FirstTrophyKey :
         ^{
             NSLog(@"ViewController.uiUpdatingOnChangeActionsForKeys[\"%@\"]()", FirstTrophyKey);
-            [self.firstTrophySwitch setOn:EPPZ_Cloud_BoolForKey(FirstTrophyKey) animated:YES];
+            [self.firstTrophySwitch setOn:_EPPZ_Cloud_BoolForKey(FirstTrophyKey) animated:YES];
         },
         SecondTrophyKey :
         ^{
             NSLog(@"ViewController.uiUpdatingOnChangeActionsForKeys[\"%@\"]()", SecondTrophyKey);
-            [self.secondTrophySwitch setOn:EPPZ_Cloud_BoolForKey(SecondTrophyKey) animated:YES];
+            [self.secondTrophySwitch setOn:_EPPZ_Cloud_BoolForKey(SecondTrophyKey) animated:YES];
         },
         ThirdTrophyKey :
         ^{
             NSLog(@"ViewController.uiUpdatingOnChangeActionsForKeys[\"%@\"]()", ThirdTrophyKey);
-            [self.thirdTrophySwitch setOn:EPPZ_Cloud_BoolForKey(ThirdTrophyKey) animated:YES];
+            [self.thirdTrophySwitch setOn:_EPPZ_Cloud_BoolForKey(ThirdTrophyKey) animated:YES];
         }
     };
     
@@ -104,56 +102,56 @@
         ^{
             NSLog(@"ViewController.conflictResolvingOnChangeActionsForKeys[\"%@\"]()", LevelKey);
 
-            int remoteValue = EPPZ_Cloud_IntForKey(LevelKey);
+            int remoteValue = _EPPZ_Cloud_IntForKey(LevelKey);
             int localValue = (int)self.levelSegmentedControl.selectedSegmentIndex;
             BOOL isConflict = (remoteValue != localValue);
             if (isConflict)
             {
                 int resolvedValue = MAX(remoteValue, localValue); // Resolving strategy
-                EPPZ_Cloud_SetIntForKey(resolvedValue, LevelKey);
-                EPPZ_Cloud_Synchronize();
+                _EPPZ_Cloud_SetIntForKey(resolvedValue, LevelKey);
+                _EPPZ_Cloud_Synchronize();
             }
         },
         FirstTrophyKey :
         ^{
             NSLog(@"ViewController.conflictResolvingOnChangeActionsForKeys[\"%@\"]()", FirstTrophyKey);
 
-            BOOL remoteValue = EPPZ_Cloud_BoolForKey(FirstTrophyKey);
+            BOOL remoteValue = _EPPZ_Cloud_BoolForKey(FirstTrophyKey);
             BOOL localValue = self.firstTrophySwitch.isOn;
             BOOL isConflict = (remoteValue != localValue);
             if (isConflict)
             {
                 BOOL resolvedValue = (remoteValue || localValue); // Resolving strategy
-                EPPZ_Cloud_SetBoolForKey(resolvedValue, FirstTrophyKey);
-                EPPZ_Cloud_Synchronize();
+                _EPPZ_Cloud_SetBoolForKey(resolvedValue, FirstTrophyKey);
+                _EPPZ_Cloud_Synchronize();
             }
         },
         SecondTrophyKey :
         ^{
             NSLog(@"ViewController.conflictResolvingOnChangeActionsForKeys[\"%@\"]()", SecondTrophyKey);
 
-            BOOL remoteValue = EPPZ_Cloud_BoolForKey(SecondTrophyKey);
+            BOOL remoteValue = _EPPZ_Cloud_BoolForKey(SecondTrophyKey);
             BOOL localValue = self.secondTrophySwitch.isOn;
             BOOL isConflict = (remoteValue != localValue);
             if (isConflict)
             {
                 BOOL resolvedValue = (remoteValue || localValue); // Resolving strategy
-                EPPZ_Cloud_SetBoolForKey(resolvedValue, SecondTrophyKey);
-                EPPZ_Cloud_Synchronize();
+                _EPPZ_Cloud_SetBoolForKey(resolvedValue, SecondTrophyKey);
+                _EPPZ_Cloud_Synchronize();
             }
         },
         ThirdTrophyKey :
         ^{
             NSLog(@"ViewController.conflictResolvingOnChangeActionsForKeys[\"%@\"]()", ThirdTrophyKey);
 
-            BOOL remoteValue = EPPZ_Cloud_BoolForKey(ThirdTrophyKey);
+            BOOL remoteValue = _EPPZ_Cloud_BoolForKey(ThirdTrophyKey);
             BOOL localValue = self.thirdTrophySwitch.isOn;
             BOOL isConflict = (remoteValue != localValue);
             if (isConflict)
             {
                 BOOL resolvedValue = (remoteValue || localValue); // Resolving strategy
-                EPPZ_Cloud_SetBoolForKey(resolvedValue, ThirdTrophyKey);
-                EPPZ_Cloud_Synchronize();
+                _EPPZ_Cloud_SetBoolForKey(resolvedValue, ThirdTrophyKey);
+                _EPPZ_Cloud_Synchronize();
             }
         }
     };
@@ -204,50 +202,50 @@
 {
     LOG_METHOD;
     [sender resignFirstResponder]; // Hide keyboard
-    EPPZ_Cloud_SetStringForKey(sender.text, NameKey);
-    EPPZ_Cloud_Synchronize();
+    _EPPZ_Cloud_SetStringForKey(sender.text, NameKey);
+    _EPPZ_Cloud_Synchronize();
 }
 
 -(IBAction)soundSwitchValueChanged:(UISwitch*) sender
 {
     LOG_METHOD;
-    EPPZ_Cloud_SetBoolForKey(sender.isOn, SoundKey);
-    EPPZ_Cloud_Synchronize();
+    _EPPZ_Cloud_SetBoolForKey(sender.isOn, SoundKey);
+    _EPPZ_Cloud_Synchronize();
 }
 
 -(IBAction)volumeSliderTouchedUp:(UISlider*) sender
 {
     LOG_METHOD;
-    EPPZ_Cloud_SetFloatForKey(sender.value, VolumeKey);
-    EPPZ_Cloud_Synchronize();
+    _EPPZ_Cloud_SetFloatForKey(sender.value, VolumeKey);
+    _EPPZ_Cloud_Synchronize();
 }
 
 -(IBAction)levelSegmentedControlValueChanged:(UISegmentedControl*) sender
 {
     LOG_METHOD;
-    EPPZ_Cloud_SetIntForKey((int)sender.selectedSegmentIndex, LevelKey);
-    EPPZ_Cloud_Synchronize();
+    _EPPZ_Cloud_SetIntForKey((int)sender.selectedSegmentIndex, LevelKey);
+    _EPPZ_Cloud_Synchronize();
 }
 
 -(IBAction)firstTrophySwitchValueChanged:(UISwitch*) sender
 {
     LOG_METHOD;
-    EPPZ_Cloud_SetBoolForKey(sender.isOn, FirstTrophyKey);
-    EPPZ_Cloud_Synchronize();
+    _EPPZ_Cloud_SetBoolForKey(sender.isOn, FirstTrophyKey);
+    _EPPZ_Cloud_Synchronize();
 }
 
 -(IBAction)secondTrophySwitchValueChanged:(UISwitch*) sender
 {
     LOG_METHOD;
-    EPPZ_Cloud_SetBoolForKey(sender.isOn, SecondTrophyKey);
-    EPPZ_Cloud_Synchronize();
+    _EPPZ_Cloud_SetBoolForKey(sender.isOn, SecondTrophyKey);
+    _EPPZ_Cloud_Synchronize();
 }
 
 -(IBAction)thirdTrophySwitchValueChanged:(UISwitch*) sender
 {
     LOG_METHOD;
-    EPPZ_Cloud_SetBoolForKey(sender.isOn, ThirdTrophyKey);
-    EPPZ_Cloud_Synchronize();
+    _EPPZ_Cloud_SetBoolForKey(sender.isOn, ThirdTrophyKey);
+    _EPPZ_Cloud_Synchronize();
 }
 
 -(void)setControlsEnabled:(BOOL) enabled

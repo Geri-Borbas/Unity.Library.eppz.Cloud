@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5506A5731FE1FF98002E9586 /* EPPZ_Cloud_C.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5506A5711FE1FF98002E9586 /* EPPZ_Cloud_C.mm */; };
+		5506A5731FE1FF98002E9586 /* EPPZ_Cloud_C.m in Sources */ = {isa = PBXBuildFile; fileRef = 5506A5711FE1FF98002E9586 /* EPPZ_Cloud_C.m */; };
 		5529823F1FDC667900144C01 /* EPPZ_Cloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 5529823E1FDC667900144C01 /* EPPZ_Cloud.m */; };
 		5529824E1FDC67B700144C01 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5529824D1FDC67B700144C01 /* AppDelegate.m */; };
 		552982511FDC67B700144C01 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 552982501FDC67B700144C01 /* ViewController.m */; };
@@ -70,7 +70,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		5506A5711FE1FF98002E9586 /* EPPZ_Cloud_C.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = EPPZ_Cloud_C.mm; sourceTree = "<group>"; };
+		5506A5711FE1FF98002E9586 /* EPPZ_Cloud_C.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EPPZ_Cloud_C.m; sourceTree = "<group>"; };
 		5506A5721FE1FF98002E9586 /* EPPZ_Cloud_C.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EPPZ_Cloud_C.h; sourceTree = "<group>"; };
 		5529823A1FDC667900144C01 /* eppz! Cloud.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "eppz! Cloud.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5529823D1FDC667900144C01 /* EPPZ_Cloud.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EPPZ_Cloud.h; sourceTree = "<group>"; };
@@ -139,7 +139,7 @@
 				55C0168E1FDDCB5000975E20 /* EPPZ_Cloud_C++.h */,
 				5537E19B1FDDC00C001F81E9 /* EPPZ_Cloud_C++.mm */,
 				5506A5721FE1FF98002E9586 /* EPPZ_Cloud_C.h */,
-				5506A5711FE1FF98002E9586 /* EPPZ_Cloud_C.mm */,
+				5506A5711FE1FF98002E9586 /* EPPZ_Cloud_C.m */,
 				5537E19D1FDDC079001F81E9 /* UnityString.m */,
 			);
 			path = "eppz! Cloud";
@@ -273,7 +273,7 @@
 			files = (
 				5529823F1FDC667900144C01 /* EPPZ_Cloud.m in Sources */,
 				5542D32C1FDDE53600E74E34 /* EPPZ_Cloud_C++.mm in Sources */,
-				5506A5731FE1FF98002E9586 /* EPPZ_Cloud_C.mm in Sources */,
+				5506A5731FE1FF98002E9586 /* EPPZ_Cloud_C.m in Sources */,
 				55C016801FDDC4C400975E20 /* UnityString.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

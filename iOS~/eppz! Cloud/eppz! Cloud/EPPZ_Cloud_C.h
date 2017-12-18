@@ -14,18 +14,18 @@
 #import "EPPZ_Cloud.h"
 
 
-extern void EPPZ_Cloud_InitializeWithGameObjectName(NSString* gameObjectName);
-extern bool EPPZ_Cloud_Synchronize(void);
+extern void _EPPZ_Cloud_InitializeWithGameObjectName(NSString* gameObjectName);
+extern bool _EPPZ_Cloud_Synchronize(void);
 
-extern NSString* EPPZ_Cloud_StringForKey(NSString* key);
-extern void EPPZ_Cloud_SetStringForKey(NSString* value, NSString* key);
+extern NSString* _EPPZ_Cloud_StringForKey(NSString* key);
+extern void _EPPZ_Cloud_SetStringForKey(NSString* value, NSString* key);
 
-extern float EPPZ_Cloud_FloatForKey(NSString* key);
-extern void EPPZ_Cloud_SetFloatForKey(float value, NSString* key);
+extern float _EPPZ_Cloud_FloatForKey(NSString* key);
+extern void _EPPZ_Cloud_SetFloatForKey(float value, NSString* key);
 
-extern int EPPZ_Cloud_IntForKey(NSString* key);
-extern void EPPZ_Cloud_SetIntForKey(int value, NSString* key);
+extern int _EPPZ_Cloud_IntForKey(NSString* key);
+extern void _EPPZ_Cloud_SetIntForKey(int value, NSString* key);
 
-extern bool EPPZ_Cloud_BoolForKey(NSString* key);
-extern void EPPZ_Cloud_SetBoolForKey(bool value, NSString* key);
+extern bool _EPPZ_Cloud_BoolForKey(NSString* key);
+extern void _EPPZ_Cloud_SetBoolForKey(bool value, NSString* key);
 

@@ -15,7 +15,7 @@
 #import <UIKit/UIKit.h>
 
 
-extern void UnitySendMessage(const char *, const char *, const char *);
+extern void UnitySendMessage(const char* gameObjectName, const char* methodName, const char* message);
 
 
 @protocol EPPZ_Cloud_Delegate

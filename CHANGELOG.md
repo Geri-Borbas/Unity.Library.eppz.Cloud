@@ -2,10 +2,13 @@
 
 * Doing
 
-	+ Fix plugin sandbox project
-	+ Particle on refresh
+	+ Particle (with sound) on refresh
 	+ Test on device
 		+ Test account change
+
+* 1.0.3
+
+	+ Fixed sandbox project
 
 * 1.0.1 - 1.0.2
 
