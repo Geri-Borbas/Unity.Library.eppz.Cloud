@@ -1,5 +1,11 @@
 # eppz.Cloud
 
+* 1.0.5
+
+	+ Fixes
+		+ Populate plugin instance even if no mobile platform is selected (yet)
+		+ `Editor` class namespaced
+
 * 1.0.4
 
 	+ On device account change test (app only suspended)

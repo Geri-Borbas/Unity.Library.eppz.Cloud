@@ -36,6 +36,8 @@ namespace EPPZ.Cloud.Plugin
 			plugin = (Application.isEditor)
 				? (Cloud)new Cloud_Editor()
 				: (Cloud)new Cloud_Android();
+			#else
+			plugin = (Cloud)new Cloud_Editor();
 			#endif
 
 			plugin.cloudObject = cloudObject;

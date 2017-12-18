@@ -17,7 +17,7 @@ namespace EPPZ.Cloud.Model.Simulation
 
 
     [CustomEditor(typeof(KeyValueStore)), CanEditMultipleObjects]
-    public class KeyValueStore_Editor : Editor
+    public class KeyValueStore_Editor : UnityEditor.Editor
     {
         
         
