@@ -1,10 +1,12 @@
 # eppz.Cloud
 
-* Doing
+* 1.0.4
 
-	+ Particle (with sound) on refresh
-	+ Test on device
-		+ Test account change
+	+ On device account change test (app only suspended)
+	+ Null check for `UnityString.m`
+	+ iOS sandbox app
+		+ UI populating upon start (like Unity sandbox app)
+		+ Conflict resolving turned off by default
 
 * 1.0.3
 

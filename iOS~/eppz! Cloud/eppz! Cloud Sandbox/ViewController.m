@@ -46,15 +46,21 @@ extern void UnitySendMessage(const char* gameObjectName, const char* methodName,
     [EPPZ_Cloud setDelegate:self];
     _EPPZ_Cloud_InitializeWithGameObjectName(@"eppz! Cloud");
     _EPPZ_Cloud_Synchronize();
- 
-    // Invoke every `onChange` action.
-    for (void (^eachBlock)(void) in self.uiUpdatingOnChangeActionsForKeys.allValues)
-    { eachBlock(); }
     
-    for (void (^eachBlock)(void) in self.conflictResolvingOnChangeActionsForKeys.allValues)
-    { eachBlock(); }
-
+    // Setup UI.
+    [self populateUI];
     [self setControlsEnabled:YES];
+}
+
+-(void)populateUI
+{
+    self.nameTextField.text = _EPPZ_Cloud_StringForKey(NameKey);
+    [self.soundSwitch setOn:_EPPZ_Cloud_BoolForKey(SoundKey)];
+    self.volumeSlider.value = _EPPZ_Cloud_FloatForKey(VolumeKey);
+    self.levelSegmentedControl.selectedSegmentIndex = _EPPZ_Cloud_IntForKey(LevelKey);
+    [self.firstTrophySwitch setOn:_EPPZ_Cloud_BoolForKey(FirstTrophyKey)];
+    [self.secondTrophySwitch setOn:_EPPZ_Cloud_BoolForKey(FirstTrophyKey)];
+    [self.thirdTrophySwitch setOn:_EPPZ_Cloud_BoolForKey(FirstTrophyKey)];
 }
 
 -(void)bindOnChangeActions

@@ -16,6 +16,7 @@
 
 char* UnityStringFromNSString(NSString* string)
 {
+    if (string == nil) string = [NSString new];
     const char* cString = string.UTF8String;
     char* _unityString = (char*)malloc(strlen(cString) + 1);
     strcpy(_unityString, cString);
