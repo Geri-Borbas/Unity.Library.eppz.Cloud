@@ -15,10 +15,14 @@
 #import <UIKit/UIKit.h>
 
 
+extern void UnitySendMessage(const char *, const char *, const char *);
+
+
 @protocol EPPZ_Cloud_Delegate
 -(void)cloudDidChange:(NSString*) userInfoJSON;
 @end
-    
+
+
 @interface EPPZ_Cloud : NSObject
 
 

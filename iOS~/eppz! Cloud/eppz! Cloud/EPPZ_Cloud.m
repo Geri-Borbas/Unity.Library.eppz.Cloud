@@ -16,11 +16,11 @@
 
 
 EPPZ_Cloud* _instance = nil;
-const char* EPPZ_Cloud_CloudDidChange = "CloudDidChange"; // Pass `userInfo` dictionary as JSON string.
-const char* EPPZ_Cloud_GameObjectName;
+const char* EPPZ_Cloud_CloudDidChange = "_CloudDidChange"; // Pass `userInfo` dictionary as JSON string.
 
 
 @interface EPPZ_Cloud ()
+@property (nonatomic, strong) NSString *gameObjectName;
 @property (nonatomic, weak) id<EPPZ_Cloud_Delegate> delegate;
 @property (nonatomic, weak) NSUbiquitousKeyValueStore *keyValueStore;
 @end
@@ -45,8 +45,8 @@ const char* EPPZ_Cloud_GameObjectName;
 
 -(void)initializeWithGameObjectName:(const char*) gameObjectName;
 {
-    EPPZ_Cloud_GameObjectName = gameObjectName;
-    NSLog(@"[EPPZ_Cloud initializeWithGameObjectName:`%@`]", NSStringFromUnityString(EPPZ_Cloud_GameObjectName));
+    self.gameObjectName = NSStringFromUnityString(gameObjectName);
+    NSLog(@"[EPPZ_Cloud initializeWithGameObjectName:`%@`]", self.gameObjectName);
     
     // Cloud.
     self.keyValueStore = [NSUbiquitousKeyValueStore defaultStore];
@@ -75,9 +75,12 @@ const char* EPPZ_Cloud_GameObjectName;
     NSString *userInfoJSON = [[NSString alloc] initWithData:userInfoJSONData encoding:NSUTF8StringEncoding];
     
     // To Unity.
-#if __cplusplus
-    UnitySendMessage(EPPZ_Cloud_GameObjectName, EPPZ_Cloud_CloudDidChange, UnityStringFromNSString(JSONString));
-#endif
+    UnitySendMessage(UnityStringFromNSString(self.gameObjectName), EPPZ_Cloud_CloudDidChange, UnityStringFromNSString(userInfoJSON));
+    
+    NSLog(@"[EPPZ_Cloud UnitySendMessage(%@, %@, %@)]",
+          self.gameObjectName,
+          NSStringFromUnityString(EPPZ_Cloud_CloudDidChange),
+          userInfoJSON);
     
     // To Sandbox app if any.
     if (self.delegate != nil) [self.delegate cloudDidChange:userInfoJSON];

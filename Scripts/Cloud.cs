@@ -156,10 +156,6 @@ namespace EPPZ.Cloud
 
 	#region Plugin callbacks (from whichever platform)
 
-		[ContextMenu("SimulateCloudDidChange()")]
-		public void SimulateCloudDidChange()
-		{ plugin.CloudDidChange("Simulate"); }
-
 		public void _CloudDidChange(string message)
 		{ plugin.CloudDidChange(message); }
 

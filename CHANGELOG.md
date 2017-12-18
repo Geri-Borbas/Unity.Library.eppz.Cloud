@@ -2,9 +2,15 @@
 
 * Doing
 
+	+ Fix plugin sandbox project
 	+ Test on device
 		+ Test change reasons
 		+ Test account change
+
+* 1.0.0
+
+	+ Fixed Unity messaging from plugin
+	+ Added Unity build post processing (for iCloud setup)
 
 * 0.9.9
 
