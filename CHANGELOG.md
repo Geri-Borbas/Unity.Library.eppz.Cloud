@@ -1,5 +1,12 @@
 # eppz.Cloud
 
+* 1.0.6
+
+	+ `Cloud.plugin` gets instantiated lazy
+	+ Added `Cloud.Initialize()` for external initialization hook
+	+ Simulation classes can be (somewhat) subclassed
+		+ Suitable to implement JSON based simulation in a product
+
 * 1.0.5
 
 	+ Fixes

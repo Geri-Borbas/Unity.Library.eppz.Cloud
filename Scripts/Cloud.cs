@@ -44,21 +44,30 @@ namespace EPPZ.Cloud
 
 		// Internal.
 		ChangeReason latestChangeReason;
-		Plugin.Cloud plugin;
+		Plugin.Cloud _plugin;
+		Plugin.Cloud plugin
+		{
+			get
+			{
+				// Create plugin instance (of whichever platform) lazy.
+				if (_plugin == null)
+				{ _plugin = Plugin.Cloud.NativePluginInstance(this); }
+				return _plugin;
+			}
+		}
 
 
 		void Start()
-		{
-			// Create plugin instance (of whichever platform).
-			plugin = Plugin.Cloud.NativePluginInstance(this);
-			if (settings.initializeOnStart) { Initialize(); }
-		}
+		{ if (settings.initializeOnStart) { _Initialize(); } }
 
-		public void Initialize()
+		void _Initialize()
 		{ plugin.InitializeWithGameObjectName(this.name); }
 
 
 	#region Features
+
+		public static void Initialize()
+		{ _instance._Initialize(); }
 
 		public static void Synchrnonize()
 		{ _instance.plugin.Synchronize(); }

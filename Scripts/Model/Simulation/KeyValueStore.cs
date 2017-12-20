@@ -29,7 +29,13 @@ namespace EPPZ.Cloud.Model.Simulation
         public Cloud_Editor plugin;
 
 
-        public KeyValuePair KeyValuePairForKey(string key)
+        public virtual void EnumerateKeyValuePairs(Action<Simulation.KeyValuePair> action)
+        {
+            foreach (KeyValuePair eachKeyValuePair in keyValuePairs)
+            { action(eachKeyValuePair); }
+        }
+
+        public virtual Simulation.KeyValuePair KeyValuePairForKey(string key)
 		{
 			foreach (KeyValuePair eachKeyValuePair in keyValuePairs)
 			{
@@ -46,11 +52,11 @@ namespace EPPZ.Cloud.Model.Simulation
 
             // Collect changed keys (from simulation store).
             List<string> changedKeys = new List<string>();
-            foreach (KeyValuePair eachKeyValuePair in keyValuePairs)
+            EnumerateKeyValuePairs((KeyValuePair eachKeyValuePair) =>
             {
                 if (eachKeyValuePair.isChanged)
                 { changedKeys.Add(eachKeyValuePair.key); }
-            }
+            });
 
             Debug.Log("changedKeys: `"+changedKeys.ToArray()+"`");
 

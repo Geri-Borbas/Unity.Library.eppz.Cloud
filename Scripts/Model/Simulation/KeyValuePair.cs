@@ -24,7 +24,15 @@ namespace EPPZ.Cloud.Model.Simulation
 		public Model.KeyValuePair.Type type;
 
 		public bool isChanged;
-        public string stringValue;
+
+        // Could be override in subclasses.
+        string _stringValue;
+        public virtual string stringValue
+        {
+            get { return _stringValue; }
+            set { _stringValue = value; }
+        }
+
         public float floatValue;
         public int intValue;
         public bool boolValue;
