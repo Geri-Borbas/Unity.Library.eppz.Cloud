@@ -42,6 +42,7 @@ namespace EPPZ.Cloud.Model.Simulation
 				if (eachKeyValuePair.key == key)
 				{ return eachKeyValuePair; }
 			}
+            Debug.LogWarning("eppz! Cloud: No Key-value pair defined for key `"+key+"`");
 			return null;
 		}
 

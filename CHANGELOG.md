@@ -1,5 +1,10 @@
 # eppz.Cloud
 
+* 1.0.7
+
+	+ `Simulation.KeyValueStore`
+		+ Added warning if non-existent keys queried
+
 * 1.0.6
 
 	+ `Cloud.plugin` gets instantiated lazy
