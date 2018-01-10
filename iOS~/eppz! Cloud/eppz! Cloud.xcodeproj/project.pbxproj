@@ -50,7 +50,7 @@
 		557D51A81FE752C500126BE1 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "~/Projects/Unity/Production/tangram/Build/iOS/tangram!/Libraries/Plugins/eppz!/Cloud";
+			dstPath = "~/Projects/Unity/Test/eppz.Cloud/Build/iOS/tangram!/Libraries/Plugins/eppz!/Cloud";
 			dstSubfolderSpec = 0;
 			files = (
 				557D51A91FE752CF00126BE1 /* eppz! Cloud.a in CopyFiles */,
@@ -60,7 +60,7 @@
 		558296831FDF671E006FE9F7 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "~/Projects/Unity/Production/tangram/Assets/Plugins/eppz!/Cloud";
+			dstPath = "~/Projects/Unity/Test/eppz.Cloud/Assets/Plugins/eppz!/Cloud";
 			dstSubfolderSpec = 0;
 			files = (
 				558296841FDF6763006FE9F7 /* eppz! Cloud.a in CopyFiles */,
