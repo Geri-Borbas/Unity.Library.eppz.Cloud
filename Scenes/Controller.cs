@@ -55,6 +55,11 @@ namespace EPPZ.Cloud.Scenes
 			PopulateElementsFromCloud();
 		}
 
+		void OnDestroy()
+		{
+			Cloud.onCloudChange -= OnCloudChange;
+		}
+
 		void PopulateElementsFromCloud()
 		{
 			elements.nameLabel.text = Cloud.StringForKey("name");

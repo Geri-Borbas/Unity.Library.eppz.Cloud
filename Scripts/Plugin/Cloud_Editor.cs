@@ -23,6 +23,9 @@ namespace EPPZ.Cloud.Plugin
 
 	#region Features
 
+		public override void Synchronize()
+		{ keyValueStore.SimulateCloudDidChange(); }
+
 		public override string StringForKey(string key)
 		{ return keyValueStore.KeyValuePairForKey(key).stringValue; }
 

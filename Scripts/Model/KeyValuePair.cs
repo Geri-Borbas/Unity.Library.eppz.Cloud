@@ -99,6 +99,9 @@ namespace EPPZ.Cloud.Model
 			{ onChangeActions.Remove(eachKeyValuePair.Key); }
 		}
 
+		public void RemoveOnChangeActions()
+		{ onChangeActions.Clear(); }
+
 		public string stringValue
 		{ get { return Cloud.StringForKey(key); } }
 

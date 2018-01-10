@@ -63,6 +63,9 @@ namespace EPPZ.Cloud
 		void _Initialize()
 		{ plugin.InitializeWithGameObjectName(this.name); }
 
+		void OnDestroy()
+		{ _RemoveOnKeyChangeActions(); }
+
 
 	#region Features
 
@@ -158,6 +161,12 @@ namespace EPPZ.Cloud
 		{
 			Model.KeyValuePair keyValuePair = settings.KeyValuePairForKey(key);
 			if (keyValuePair != null) { keyValuePair.AddOnChangeAction(action, priority); }
+		}
+
+		void _RemoveOnKeyChangeActions()
+		{
+			foreach (Model.KeyValuePair eachKeyValuePair in settings.keyValuePairs)
+			{ eachKeyValuePair.RemoveOnChangeActions(); }
 		}
 
 	#endregion

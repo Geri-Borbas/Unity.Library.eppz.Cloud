@@ -47,7 +47,7 @@ namespace EPPZ.Cloud.Model.Simulation
 		}
 
         [ContextMenu("Simulate `CloudDidChange`")]
-        public void SimulateCloudDidChange()
+        public virtual void SimulateCloudDidChange()
         {
             Debug.Log("SimulateCloudDidChange()");
 
@@ -56,7 +56,12 @@ namespace EPPZ.Cloud.Model.Simulation
             EnumerateKeyValuePairs((KeyValuePair eachKeyValuePair) =>
             {
                 if (eachKeyValuePair.isChanged)
-                { changedKeys.Add(eachKeyValuePair.key); }
+                {
+                    changedKeys.Add(eachKeyValuePair.key);
+
+                    // Reset.
+                    eachKeyValuePair.isChanged = false;
+                }
             });
 
             Debug.Log("changedKeys: `"+changedKeys.ToArray()+"`");

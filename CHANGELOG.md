@@ -1,5 +1,10 @@
 # eppz.Cloud
 
+* 1.0.8
+
+	+ Unsubscrbe delegates / actions at `Cloud.OnDestroy()`
+	+ Forced to add bitcode (`-fembed-bitcode` compiler flag)
+
 * 1.0.7
 
 	+ `Simulation.KeyValueStore`
