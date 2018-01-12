@@ -46,7 +46,7 @@ const char* EPPZ_Cloud_CloudDidChange = "_CloudDidChange"; // Pass `userInfo` di
 -(void)initializeWithGameObjectName:(const char*) gameObjectName;
 {
     self.gameObjectName = NSStringFromUnityString(gameObjectName);
-    NSLog(@"[EPPZ_Cloud initializeWithGameObjectName:`%@`]", self.gameObjectName);
+    // NSLog(@"[EPPZ_Cloud initializeWithGameObjectName:`%@`]", self.gameObjectName);
     
     // Cloud.
     self.keyValueStore = [NSUbiquitousKeyValueStore defaultStore];
@@ -58,15 +58,15 @@ const char* EPPZ_Cloud_CloudDidChange = "_CloudDidChange"; // Pass `userInfo` di
 
 -(BOOL)synchronize
 {
-    NSLog(@"[EPPZ_Cloud synchronize]");
+    // NSLog(@"[EPPZ_Cloud synchronize]");
     BOOL synchronized = [self.keyValueStore synchronize];
-    NSLog(@"synchronized:%@", (synchronized) ? @"YES" : @"NO");
+    // NSLog(@"synchronized:%@", (synchronized) ? @"YES" : @"NO");
     return synchronized;
 }
 
 -(void)cloudDidChange:(NSNotification*) notification
 {
-    NSLog(@"[EPPZ_Cloud cloudDidChange:]");
+    // NSLog(@"[EPPZ_Cloud cloudDidChange:]");
     
     NSError *error;
     NSData *userInfoJSONData = [NSJSONSerialization dataWithJSONObject:notification.userInfo
@@ -77,10 +77,12 @@ const char* EPPZ_Cloud_CloudDidChange = "_CloudDidChange"; // Pass `userInfo` di
     // To Unity.
     UnitySendMessage(UnityStringFromNSString(self.gameObjectName), EPPZ_Cloud_CloudDidChange, UnityStringFromNSString(userInfoJSON));
     
+    /*
     NSLog(@"[EPPZ_Cloud UnitySendMessage(%@, %@, %@)]",
           self.gameObjectName,
           NSStringFromUnityString(EPPZ_Cloud_CloudDidChange),
           userInfoJSON);
+    */
     
     // To Sandbox app if any.
     if (self.delegate != nil) [self.delegate cloudDidChange:userInfoJSON];
@@ -91,49 +93,49 @@ const char* EPPZ_Cloud_CloudDidChange = "_CloudDidChange"; // Pass `userInfo` di
 
 -(const char*)stringForKey:(const char*) key
 {
-    NSLog(@"[EPPZ_Cloud stringForKey:`%@`]", NSStringFromUnityString(key));
+    // NSLog(@"[EPPZ_Cloud stringForKey:`%@`]", NSStringFromUnityString(key));
     return UnityStringFromNSString([self.keyValueStore stringForKey:NSStringFromUnityString(key)]);
 }
 
 -(void)setString:(const char*) value forKey:(const char*) key
 {
-    NSLog(@"[EPPZ_Cloud setString:%@ forKey:`%@`]", NSStringFromUnityString(value), NSStringFromUnityString(key));
+    // NSLog(@"[EPPZ_Cloud setString:%@ forKey:`%@`]", NSStringFromUnityString(value), NSStringFromUnityString(key));
     [self.keyValueStore setString:NSStringFromUnityString(value) forKey:NSStringFromUnityString(key)];
 }
 
 -(float)floatForKey:(const char*) key
 {
-    NSLog(@"[EPPZ_Cloud floatForKey:`%@`]", NSStringFromUnityString(key));
+    // NSLog(@"[EPPZ_Cloud floatForKey:`%@`]", NSStringFromUnityString(key));
     return (float)[self.keyValueStore doubleForKey:NSStringFromUnityString(key)];
 }
 
 -(void)setFloat:(float) value forKey:(const char*) key
 {
-    NSLog(@"[EPPZ_Cloud setFloat:%f forKey:`%@`]", value, NSStringFromUnityString(key));
+    // NSLog(@"[EPPZ_Cloud setFloat:%f forKey:`%@`]", value, NSStringFromUnityString(key));
     [self.keyValueStore setDouble:(double)value forKey:NSStringFromUnityString(key)];
 }
 
 -(int)intForKey:(const char*) key
 {
-    NSLog(@"[EPPZ_Cloud intForKey:`%@`]", NSStringFromUnityString(key));
+    // NSLog(@"[EPPZ_Cloud intForKey:`%@`]", NSStringFromUnityString(key));
     return (int)[self.keyValueStore longLongForKey:NSStringFromUnityString(key)];
 }
 
 -(void)setInt:(int) value forKey:(const char*) key
 {
-    NSLog(@"[EPPZ_Cloud setInt:%d forKey:`%@`]", value, NSStringFromUnityString(key));
+    // NSLog(@"[EPPZ_Cloud setInt:%d forKey:`%@`]", value, NSStringFromUnityString(key));
     [self.keyValueStore setLongLong:(long long)value forKey:NSStringFromUnityString(key)];
 }
 
 -(BOOL)boolForKey:(const char*) key
 {
-    NSLog(@"[EPPZ_Cloud boolForKey:`%@`]", NSStringFromUnityString(key));
+    // NSLog(@"[EPPZ_Cloud boolForKey:`%@`]", NSStringFromUnityString(key));
     return [self.keyValueStore boolForKey:NSStringFromUnityString(key)];
 }
 
 -(void)setBool:(BOOL) value forKey:(const char*) key
 {
-    NSLog(@"[EPPZ_Cloud setBool:%@ forKey:`%@`]", (value) ? @"YES" : @"NO", NSStringFromUnityString(key));
+    // NSLog(@"[EPPZ_Cloud setBool:%@ forKey:`%@`]", (value) ? @"YES" : @"NO", NSStringFromUnityString(key));
     [self.keyValueStore setBool:value forKey:NSStringFromUnityString(key)];
 }
 

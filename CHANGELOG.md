@@ -1,5 +1,10 @@
 # eppz.Cloud
 
+* 1.0.9
+
+	+ iOS
+		+ Removed log messages
+
 * 1.0.8
 
 	+ Unsubscrbe delegates / actions at `Cloud.OnDestroy()`
